@@ -7,15 +7,87 @@
 //============================================================================
 
 #include <iostream>
-#include "BinaryIO.h"
 #include "harp_emulator_driver.h"
 #include <cassert>
 #include <vector>
 #include <cstdlib>
-#include "SimdCore.h"
 #include <cmath>
+#include <cstdio>
+#include <istream>
+
 using namespace std;
 
+bool loadOpcodeToInstr(ArchSpec_t* archSpec){
+	if(archSpec == nullptr){
+		return false;
+	}
+	else{
+		//Setup instruction to argument class mapping
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//nop
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//di
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//ei
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REGSRC);		//tlbadd
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//tlbflush
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//neg
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//not
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//and
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//or
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//xor
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//add
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//sub
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//mul
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//div
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//mod
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//shl
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//shr
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//andi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//ori
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//xori
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//addi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//subi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//muli
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//divi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//modi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//shli
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//shri
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2IMM);		//jali
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//jalr
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1IMM);		//jmpi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1REG);		//jmpr
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1REG);		//clone
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//jalis
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//jalrs
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1REG);		//jmprt
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMM);		//ld
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3IMMSRC);		//st
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2IMM);		//ldi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_PREG_REG);	//rtop
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3PREG);		//andp
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3PREG);		//orp
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3PREG);		//xorp
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2PREG);		//notp
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_PREG_REG);	//isneg
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_PREG_REG);	//iszero
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//halt
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//trap
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1REG);		//jmpru
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1REG);		//skep
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//reti
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_1REG);		//tlbrm
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//itof
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//ftoi
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//fadd
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//fsub
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//fmul
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//fdiv
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//fneg
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//wspawn
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//split
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//join
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//bar
+		return true;
+	}
+}
 
 int main(int argc, char* argv[]) {
 
@@ -69,7 +141,7 @@ int main(int argc, char* argv[]) {
 
 		//Warp Numbers
 		warpNum				=	stoi(args[6]);
-		if((simdLanes==0) || (simdLanes&(simdLanes-1))){
+		if((warpNum==0) || (simdLanes&(warpNum-1))){
 			std::cout << "Warp number should be power of 2.\n";
 			exit(1);
 		}
@@ -86,13 +158,12 @@ int main(int argc, char* argv[]) {
 	std::cout << "Help:\t ./harp_emulator <input binary(Required)> <output binary(Required)> <instruction width> <GPR Number> <PREG Number> <SIMD Lanes> <Warp Number>" << "\n";
 
 	//Configure Architecture specification
-	ArchSpec* simdSpecPtr 	= new ArchSpec;
+	ArchSpec_t* simdSpecPtr 	= new ArchSpec_t;
 	simdSpecPtr->gprNum 	= generalPurposeReg;
 	simdSpecPtr->instLength	= instructionLength;
 	simdSpecPtr->pregNum	= predicateReg;
-	simdSpecPtr->simdLanes	= simdLanes;
-	simdSpecPtr->warpNum	= warpNum;
-	simdSpecPtr->writeAddr	= 0x80000000;
+	simdSpecPtr->writeAddr	= 0x8000000;
+	loadOpcodeToInstr(simdSpecPtr);
 
 	//Get bit length required for GPR and PREG
 	uint32_t gprBitLength 	= log2((double)generalPurposeReg);
@@ -105,24 +176,43 @@ int main(int argc, char* argv[]) {
 
 	//Set opcode and Predicate fields
 	if(instructionLength == 4){
-		simdSpecPtr->predicate.position 	= 31;
+		simdSpecPtr->predicate.position 	= 32;
 		simdSpecPtr->predicate.length		= 1;
-		simdSpecPtr->opcode.position		= 31 - pregBitLength -1;
+		simdSpecPtr->pregRegField.position	= 32 - 1;
+		simdSpecPtr->pregRegField.length	= pregBitLength;
+		simdSpecPtr->opcode.position		= 32 - 1 - pregBitLength;
 		simdSpecPtr->opcode.length			= 6;
 	}
 
 	else{
-		simdSpecPtr->predicate.position 	= 63;
+		simdSpecPtr->predicate.position 	= 64;
 		simdSpecPtr->predicate.length		= 1;
-		simdSpecPtr->opcode.position		= 63 - pregBitLength -1;
+		simdSpecPtr->pregRegField.position	= 64 - 1;
+		simdSpecPtr->pregRegField.length	= pregBitLength;
+		simdSpecPtr->opcode.position		= 64 - 1 - pregBitLength;
 		simdSpecPtr->opcode.length			= 6;
 	}
 
+	//Configure Memory Map
+	MemoryMap* memoryMap = new MemoryMap(inputFile,instructionLength);
+	memoryMap->printMemoryBuff();
+	std::cout << std::dec << memoryMap->memoryBuff.size() << "\n";
+
 	//Initialize GPU
 	//SimdCore* GPU = new SimdCore[simdLanes](inputFile,outputFile,simdSpecPtr);
-	SimdCore GPU(inputFile,outputFile,simdSpecPtr);
+	SimdCoreBase* GPU;
+	if(instructionLength == 4){
+		GPU = new SimdCore<unsigned int>(simdSpecPtr,memoryMap);
+	}
+	else{
+		GPU = new SimdCore<unsigned long long>(simdSpecPtr,memoryMap);
+	}
+
+	GPU->start(true);
+    memoryMap->printMemoryBuff();
 	//GPU.printBinary();
 	//GPU.printFileLength();
+	/*
 	GPU.load();
 	GPU.start();
 	uint64_t inst = 0x0158FFFF;
@@ -133,7 +223,7 @@ int main(int argc, char* argv[]) {
 
 		//GPU[i].start();
 
-	}
+	}*/
 
 	return 0;
 }

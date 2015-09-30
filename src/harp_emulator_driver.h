@@ -11,6 +11,8 @@
 #include <cinttypes>
 #include <limits>
 #include <cstdint>
+#include "SimdCore.h"
+#include "MemoryMap.h"
 
 #define DEFAULT_IL 4
 #define DEFAULT_GN 8
@@ -18,5 +20,6 @@
 #define DEFAULT_SL 8
 #define DEFAULT_WN 8
 
+bool loadOpcodeToInstr(ArchSpec_t*);
 
 #endif /* HARP_EMULATOR_DRIVER_H_ */
