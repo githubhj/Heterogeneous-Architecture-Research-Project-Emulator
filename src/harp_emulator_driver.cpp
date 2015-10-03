@@ -14,6 +14,7 @@
 #include <cmath>
 #include <cstdio>
 #include <istream>
+#include <algorithm>
 
 using namespace std;
 
@@ -162,14 +163,14 @@ int main(int argc, char* argv[]) {
 	simdSpecPtr->gprNum 	= generalPurposeReg;
 	simdSpecPtr->instLength	= instructionLength;
 	simdSpecPtr->pregNum	= predicateReg;
-	simdSpecPtr->writeAddr	= 0x8000000;
+	simdSpecPtr->writeAddr	= 0x80000000;
 	loadOpcodeToInstr(simdSpecPtr);
 
 	//Get bit length required for GPR and PREG
 	uint32_t gprBitLength 	= log2((double)generalPurposeReg);
-	cout << gprBitLength << "\n";
+	//cout << gprBitLength << "\n";
 	uint32_t pregBitLength 	= log2((double)predicateReg);
-	cout << pregBitLength << "\n";
+	//cout << pregBitLength << "\n";
 
 	simdSpecPtr->gprBitLength  = gprBitLength;
 	simdSpecPtr->pregBitLength = pregBitLength;
@@ -195,35 +196,28 @@ int main(int argc, char* argv[]) {
 
 	//Configure Memory Map
 	MemoryMap* memoryMap = new MemoryMap(inputFile,instructionLength);
-	memoryMap->printMemoryBuff();
-	std::cout << std::dec << memoryMap->memoryBuff.size() << "\n";
-
+    
 	//Initialize GPU
-	//SimdCore* GPU = new SimdCore[simdLanes](inputFile,outputFile,simdSpecPtr);
-	SimdCoreBase* GPU;
+    std::vector< std::shared_ptr<SimdCoreBase> > GPU(simdLanes);
 	if(instructionLength == 4){
-		GPU = new SimdCore<unsigned int>(simdSpecPtr,memoryMap);
+        for (uint32_t i=0; i<simdLanes; i++) {
+            GPU[i].reset(new SimdCore<uint32_t>(simdSpecPtr,memoryMap));
+        }
 	}
 	else{
-		GPU = new SimdCore<unsigned long long>(simdSpecPtr,memoryMap);
+        for (uint32_t i=0; i<simdLanes; i++) {
+            GPU[i].reset(new SimdCore<uint64_t>(simdSpecPtr,memoryMap));
+        }
 	}
-
-	GPU->start(true);
-    memoryMap->printMemoryBuff();
-	//GPU.printBinary();
-	//GPU.printFileLength();
-	/*
-	GPU.load();
-	GPU.start();
-	uint64_t inst = 0x0158FFFF;
-	//GPU.execute(inst);
-	for(uint32_t i = 0 ; i < simdLanes; i++){
-
-		//Blocking call
-
-		//GPU[i].start();
-
-	}*/
+    
+    
+	GPU[0]->start(false);
+    ofstream outFile;
+    
+    //Write to the output file
+    outFile.open(outputFile);
+    outFile << GPU[0]->getOutputData();
+    outFile.close();
 
 	return 0;
 }

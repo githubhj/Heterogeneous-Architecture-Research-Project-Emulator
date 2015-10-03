@@ -12,47 +12,49 @@ SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
 	simdSpec 		= simdSpec_i;
 	memoryMap 		= memoryMap_i;
 	gprFile			= new T[simdSpec->gprNum];
-	pregFile		= new T[simdSpec->pregNum];
+	pregFile		= new bool[simdSpec->pregNum];
+    for (uint32_t count=0; count < simdSpec->instLength; count++) {
+        gprFile[count] = 0;
+        pregFile[count] = false;
+    }
 	programCounter	= 0;
+    debug_counter = 0;
 };
 
 template<typename T>
 void SimdCore<T>::start(bool debug){
-	programCounter =0;
-
+    programCounter =0;
 	bool executeNext = true;
-    T tempAddr;
+    T instruction;
 	while(executeNext){
-        if (memoryMap->memoryBuff.find((unsigned long long)programCounter) == memoryMap->memoryBuff.end()) {
+        for (uint64_t count = 0; count <simdSpec->instLength; count++) {
+            uint64_t tempAddr = programCounter + simdSpec->instLength -1 - count;
+            instruction = (instruction << CHAR_BIT) | (uint64_t)memoryMap->memoryBuff[tempAddr];
+        }
+        if (!instruction) {
             break;
         }
-        tempAddr = (T)memoryMap->memoryBuff[programCounter];
-		executeNext = this->execute(tempAddr, debug);
+		executeNext = this->execute(instruction, debug);
+        instruction = 0;
 	}
 }
 
 template<typename T>
 bool SimdCore<T>::execute(T instruction, bool debug){
+    
+    debug_counter++;
+    
 	uint32_t opcodeValue =0;
 	T* gprInput1 	= nullptr;
 	T* gprInput2 	= nullptr;
 	T* gprOut		= nullptr;
-	T* pregIn1		= nullptr;
-	T* pregIn2		= nullptr;
-	T* pregOut		= nullptr;
+    bool* pregIn1		= nullptr;
+	bool* pregIn2		= nullptr;
+	bool* pregOut		= nullptr;
 	T immediate		= 0;
 	ArgumentEnum_t	opcodeArg;
 
 	bool predicateBit = (instruction >> ((simdSpec->predicate.position)-1));
-
-	//Predicated check
-	if(predicateBit){
-		uint32_t predRegNum =  ((instruction << (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (simdSpec->pregRegField.position - simdSpec->pregRegField.length);
-		if(pregFile[predRegNum]==0){
-			programCounter += simdSpec->instLength;
-			return true;
-		}
-	}
 
 	//Normal Execution
 
@@ -63,8 +65,6 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 
 	//Get Arguments
 	opcodeArg = simdSpec->opcodeToArgument[opcodeValue];
-	std::cout << std::hex << opcodeValue << "\n";
-	std::cout << std::hex << opcodeArg << "\n";
 
 	//Get opcode with args
 	uint32_t regShiftLeftVal = sizeof(T)*CHAR_BIT - (simdSpec->opcode.position - simdSpec->opcode.length);
@@ -83,6 +83,11 @@ bool SimdCore<T>::execute(T instruction, bool debug){
     uint32_t pregNum3		=0;
 	T immVal 				=0;
 
+    
+    if (debug_counter == 116480) {
+        int a;
+        a=10;
+    }
 
 
 	switch(opcodeArg){
@@ -239,7 +244,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->pregBitLength);
 				rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
 				pregNum1 		= opcodeWithArgs >> rightShiftVal1;
-				leftShiftVal1 	= regShiftLeftVal + simdSpec->gprBitLength;
+				leftShiftVal1 	= regShiftLeftVal + simdSpec->pregBitLength;
 				gprNum1			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 
 				pregOut					= pregFile + pregNum1;
@@ -269,13 +274,23 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 		if(debug){
 			std::cout << "----------------------------------------------------------" << "\n";
 			std::cout << std::hex <<	"Instruction:\t" << instruction << "\n";
-			std::cout << std::hex <<	"Programcounter:\t" << programCounter << "\n";
+			std::cout << std::hex <<	"0x" << programCounter << "\n";
+            std::cout << std::hex <<	"Programcounter:\t" << programCounter << "\n";
 			std::cout << std::hex <<	"Opcode:\t" << opcodeValue << "\n";
 			std::cout << std::hex << 	"GPR Values:" << "GPR1: " << gprNum1 <<  " GPR2: " << gprNum2 << " GPR3: " << gprNum3 << "\n";
 			std::cout << std::hex << 	"PREG Values:" << "PREG1: " << pregNum1 <<  "PREG2: " << pregNum2 << "\n";
 			std::cout << std::hex << 	"Immediate Value:" << immVal;
 			std::cout << "----------------------------------------------------------" << "\n";
 		}
+    
+    //Predicated check
+    if(predicateBit){
+        uint32_t predRegNum =  ((instruction << (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (simdSpec->pregRegField.position - simdSpec->pregRegField.length);
+        if(pregFile[predRegNum]==false){
+            programCounter += simdSpec->instLength;
+            return true;
+        }
+    }
 
 		switch(opcodeValue){
 			//NOP
@@ -511,7 +526,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			//modi
 			case(24):{
 				if(gprInput1 && gprOut){
-					if((*gprInput2)!=0){
+					if((immediate)!=0){
 						*gprOut = (*gprInput1) % (immediate);
 						programCounter +=  simdSpec->instLength;
 						return true;
@@ -616,16 +631,18 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			//ld
 			case(35):{
 				if(gprOut && gprInput1){
-					T tempAddr = (*gprInput1) + (immediate);
-
-
-					if(memoryMap->memoryBuff.find((uint64_t)tempAddr) == memoryMap->memoryBuff.end()){
-						memoryMap->memoryBuff[(uint64_t)tempAddr] =  0;
-					}
-
-					T temp_data = (T)memoryMap->memoryBuff[(uint64_t)tempAddr];
+					T actualAddr = (*gprInput1) + (immediate);
+                    T temp_data =0;
+                    for (uint64_t count =0; count < simdSpec->instLength; count++) {
+                        uint64_t tempAddr = actualAddr + simdSpec->instLength -1 -count;
+                        
+                        if(memoryMap->memoryBuff.find((uint64_t)tempAddr) == memoryMap->memoryBuff.end()){
+                            memoryMap->memoryBuff[(uint64_t)tempAddr] =  0;
+                        }
+                        temp_data = temp_data << CHAR_BIT | (uint64_t)memoryMap->memoryBuff[tempAddr];
+                        
+                    }
 					*gprOut = temp_data;
-
 					programCounter += simdSpec->instLength;
 					return true;
 				}
@@ -635,13 +652,18 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			//st
 			case(36):{
 				if(gprInput1 && gprInput2){
-					T temp_addr = (*gprInput2) + (immediate);
+					T actualAddr = (*gprInput2) + (immediate);
 
-					if(temp_addr==simdSpec->writeAddr){
+					if(actualAddr==simdSpec->writeAddr){
 						outputMemory.push_back((char)(*gprInput1));
 					}
 					else{
-						memoryMap->memoryBuff[(uint64_t)temp_addr] = *(gprInput1);
+                        T tempAddr = actualAddr;
+                        for (uint64_t count =0; count < simdSpec->instLength; count++) {
+                            memoryMap->memoryBuff[(uint64_t)tempAddr] = (uint8_t)(*(gprInput1) >> (CHAR_BIT*count));
+                            tempAddr++;
+                        }
+						
 					}
 					programCounter += simdSpec->instLength;
 					return true;
@@ -663,8 +685,11 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(38):{
 				if(gprInput1&&pregOut){
 					if(*gprInput1){
-						*pregOut = 1;
+						*pregOut = true;
 					}
+                    else{
+                        *pregOut = false;
+                    }
 					programCounter += simdSpec->instLength;
 					return true;
 				}
@@ -704,7 +729,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			//notp
 			case(42):{
 				if(pregIn1&&pregOut){
-					*pregOut = ~(*pregIn1);
+					*pregOut = !(*pregIn1);
 					programCounter += simdSpec->instLength;
 					return true;
 				}
@@ -715,8 +740,11 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(43):{
 				if(gprInput1&&pregOut){
 					if(((*gprInput1 >> ((sizeof(T)*CHAR_BIT)-1))) == 1){
-						*pregOut = 1;
+						*pregOut = true;
 					}
+                    else{
+                        *pregOut = false;
+                    }
                     programCounter += simdSpec->instLength;
                     return true;
 				}
@@ -726,8 +754,11 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(44):{
 				if(gprInput1&&pregOut){
 					if((*gprInput1) == 0){
-						*pregOut = 1;
+						*pregOut = true;
 					}
+                    else{
+                        *pregOut  = false;
+                    }
                     programCounter += simdSpec->instLength;
                     return true;
 				}
@@ -867,6 +898,34 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 
 }
 
+template <typename T>
+std::string SimdCore<T>::getOutputData(){
+    std::string myStr;
+    for (uint64_t i=0; i<outputMemory.size(); i++) {
+        myStr += outputMemory[i];
+    }
+    return myStr;
+}
+
+template <typename T>
+SimdCore<T>::SimdCore(const SimdCore& other){
+    simdSpec 		= other.simdSpec;
+    memoryMap 		= other.memoryMap;
+    gprFile			= new T[simdSpec->gprNum];
+    pregFile		= new bool[simdSpec->pregNum];
+    for (uint32_t count=0; count < simdSpec->instLength; count++) {
+        gprFile[count] = other.gprFile[count];
+        pregFile[count] = other.pregFile[count];
+    }
+    programCounter	= other.programCounter;
+    debug_counter = other.debug_counter;
+}
+
+template <typename T>
+SimdCore<T>::~SimdCore(){
+    delete[] gprFile;
+    delete[] pregFile;
+}
 
 template class SimdCore<unsigned int>;
 template class SimdCore<unsigned long long>;

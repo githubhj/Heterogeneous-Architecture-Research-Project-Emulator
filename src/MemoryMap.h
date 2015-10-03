@@ -14,7 +14,7 @@
 #include <cstdint>
 #include <map>
 
-typedef std::map<unsigned long long,unsigned long long> memoryBuff_t;
+typedef std::map<uint64_t,uint8_t> memoryBuff_t;
 
 
 class MemoryMap {

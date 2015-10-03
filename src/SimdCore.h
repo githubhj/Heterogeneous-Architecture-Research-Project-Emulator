@@ -57,6 +57,7 @@ public:
 
 	SimdCoreBase(){};
 	virtual void start(bool debug)=0;
+    virtual std::string getOutputData()=0;
 	virtual ~SimdCoreBase(){};
 };
 
@@ -68,14 +69,18 @@ private:
 
 	//Mmeory Map
 	MemoryMap* memoryMap;
+    
+    //outputmemory
+    outputmemory_t 		outputMemory;
 
-	//outputmemory
-	outputmemory_t 		outputMemory;
-
+	
 	//Program counter and register file
 	T 					programCounter;
 	T*					gprFile;
-	T* 					pregFile;
+	bool* 				pregFile;
+    
+    //debug counter;
+    uint64_t debug_counter;
 
 public:
 
@@ -89,9 +94,13 @@ public:
 	SimdCore& operator=(const SimdCore& rhs);
 
 	void start(bool debug);
+    
+    std::string getOutputData();
 
 	bool execute(T instruction, bool debug);
-	~SimdCore(){};
+    
+
+	~SimdCore();
 };
 
 
