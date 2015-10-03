@@ -915,6 +915,47 @@ std::string SimdCore<T>::getOutputData(){
     return myStr;
 }
 
+//Clear GPR register File
+template <typename T>
+void SimdCore<T>::clearGprFile(){
+    for (uint32_t i=0; i < simdSpec->gprNum; i++) {
+        gprFile[i]  =   DEFAULT_GPRVAL;
+    }
+}
+
+//Clear PREG register file
+template <typename T>
+void SimdCore<T>::clearPregFile(){
+    for (uint32_t i=0; i < simdSpec->gprNum; i++) {
+        gprFile[i]  =   DEFAULT_PREGVAL;
+    }
+}
+
+//Clear Program counter
+template <typename T>
+void SimdCore<T>::clearProgramCounter(){
+    programCounter = 0;
+}
+
+
+//Clear Output Memory counter
+template <typename T>
+void SimdCore<T>::clearOutPutMemory(){
+    outputMemory.resize(0);
+    outputMemory.shrink_to_fit();
+}
+
+//Reset the object
+template <typename T>
+void SimdCore<T>::reset(){
+    clearGprFile();
+    clearPregFile();
+    clearProgramCounter();
+    clearOutPutMemory();
+}
+
+
+
 //Copy constructor
 template <typename T>
 SimdCore<T>::SimdCore(const SimdCore& other){

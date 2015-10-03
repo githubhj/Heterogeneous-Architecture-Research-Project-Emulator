@@ -11,6 +11,7 @@
 #include <cinttypes>
 #include <limits>
 #include <cstdint>
+#include <vector>
 #include "SimdCore.h"
 #include "MemoryMap.h"
 
@@ -21,5 +22,7 @@
 #define DEFAULT_WN 1
 
 bool loadOpcodeToInstr(ArchSpec_t*);
+
+typedef std::map<uint64_t, outputmemory_t> threadOutputMemory_t;
 
 #endif /* HARP_EMULATOR_DRIVER_H_ */

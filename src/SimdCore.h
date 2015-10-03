@@ -15,6 +15,10 @@
 #include <cmath>
 #include <map>
 #include "MemoryMap.h"
+
+#define DEFAULT_GPRVAL 0UL
+#define DEFAULT_PREGVAL false
+
 typedef std::vector<char> outputmemory_t;
 
 typedef struct _instrField{
@@ -58,6 +62,9 @@ public:
 	SimdCoreBase(){};
 	virtual void start(bool debug)=0;
     virtual std::string getOutputData()=0;
+    virtual void reset()=0;
+    //outputmemory
+    outputmemory_t 		outputMemory;
 	virtual ~SimdCoreBase(){};
 };
 
@@ -69,10 +76,6 @@ private:
 
 	//Mmeory Map
 	MemoryMap* memoryMap;
-    
-    //outputmemory
-    outputmemory_t 		outputMemory;
-
 	
 	//Program counter and register file
 	T 					programCounter;
@@ -92,13 +95,20 @@ public:
 
 	//Assignment operator
 	SimdCore& operator=(const SimdCore& rhs);
-
+    
+    //start the GPU
 	void start(bool debug);
     
+    //Get output memory into a string
     std::string getOutputData();
 
 	bool execute(T instruction, bool debug);
     
+    void reset(void);
+    void clearGprFile(void);
+    void clearPregFile(void);
+    void clearProgramCounter(void);
+    void clearOutPutMemory(void);
 
 	~SimdCore();
 };

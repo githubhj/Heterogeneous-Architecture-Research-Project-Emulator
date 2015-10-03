@@ -108,11 +108,11 @@ int main(int argc, char* argv[]) {
 	assert(argc > 2);
 
 	//Take default architecture specifications
-	uint64_t instructionLength  = DEFAULT_IL;
-	uint64_t generalPurposeReg 	= DEFAULT_GN;
-	uint64_t predicateReg		= DEFAULT_PN;
-	uint64_t simdLanes			= DEFAULT_SL;
-	uint64_t warpNum			= DEFAULT_WN;
+	uint32_t instructionLength  = DEFAULT_IL;
+	uint32_t generalPurposeReg 	= DEFAULT_GN;
+	uint32_t predicateReg		= DEFAULT_PN;
+	uint32_t simdLanes			= DEFAULT_SL;
+	uint32_t warpNum			= DEFAULT_WN;
 
 	//Copy arguments
 	std::vector<std::string> args;
@@ -175,6 +175,7 @@ int main(int argc, char* argv[]) {
 	simdSpecPtr->gprNum 	= generalPurposeReg;
 	simdSpecPtr->instLength	= instructionLength;
 	simdSpecPtr->pregNum	= predicateReg;
+    //Hard coded
 	simdSpecPtr->writeAddr	= 0x80000000;
 	loadOpcodeToInstr(simdSpecPtr);
 
@@ -209,6 +210,9 @@ int main(int argc, char* argv[]) {
 	//Configure Memory Map
 	MemoryMap* memoryMap = new MemoryMap(inputFile,instructionLength);
     
+    //Initialize output memory
+    threadOutputMemory_t threadOutputMemory;
+    
 	//Initialize GPU
     std::vector< std::shared_ptr<SimdCoreBase> > GPU(simdLanes);
     //If instruction width is 4
@@ -225,9 +229,14 @@ int main(int argc, char* argv[]) {
 	}
     
     //Execute GPU's
-    for (uint64_t count =0; count < simdLanes; count++) {
-        GPU[count]->start(false);
+    for (uint32_t warpID =0 ; warpID < warpNum; warpID++) {
+        for (uint64_t laneID=0; laneID < simdLanes; laneID++) {
+            GPU[laneID]->reset();
+            GPU[laneID]->start(false);
+            threadOutputMemory[warpID*simdLanes + laneID] = GPU[laneID]->outputMemory;
+        }
     }
+   
 
     
     //Write to the output file
@@ -235,6 +244,10 @@ int main(int argc, char* argv[]) {
     outFile.open(outputFile);
     outFile << GPU[0]->getOutputData();
     outFile.close();
+    
+    //Delete members on heap
+    delete memoryMap;
+    delete simdSpecPtr;
 
 	return 0;
 }
