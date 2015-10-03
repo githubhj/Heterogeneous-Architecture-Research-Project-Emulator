@@ -17,8 +17,8 @@
 #define DEFAULT_IL 4
 #define DEFAULT_GN 8
 #define DEFAULT_PN 8
-#define DEFAULT_SL 8
-#define DEFAULT_WN 8
+#define DEFAULT_SL 1
+#define DEFAULT_WN 1
 
 bool loadOpcodeToInstr(ArchSpec_t*);
 
