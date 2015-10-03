@@ -1,9 +1,13 @@
-/*
- * MemoryMap.cpp
- *
- *  Created on: Sep 29, 2015
- *      Author: harshitjain
- */
+//============================================================================
+// Name        : MemoryMap.cpp
+// Author      : Harshit Jain
+// Version     : 1.0
+// Copyright   : It's protected under Beerware
+// GT ID       : 903024992
+// Class       : ECE 8823
+// Assignment  : 3
+// Description : MemoryMap class in C++, Ansi-style
+//============================================================================
 
 #include "MemoryMap.h"
 

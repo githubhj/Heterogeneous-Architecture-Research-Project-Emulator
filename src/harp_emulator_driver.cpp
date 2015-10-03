@@ -1,9 +1,12 @@
 //============================================================================
-// Name        : harp_emulator.cpp
+// Name        : harp_emulator_driver.cpp
 // Author      : Harshit Jain
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Version     : 1.0
+// Copyright   : It's protected under Beerware
+// GT ID       : 903024992
+// Class       : ECE 8823
+// Assignment  : 3
+// Description : Harp Emulator in C++, Ansi-style
 //============================================================================
 
 #include <iostream>

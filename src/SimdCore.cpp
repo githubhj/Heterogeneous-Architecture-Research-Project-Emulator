@@ -1,9 +1,13 @@
-/*
- * SimdCore.cpp
- *
- *  Created on: Sep 29, 2015
- *      Author: harshitjain
- */
+//============================================================================
+// Name        : SimdCore.cpp
+// Author      : Harshit Jain
+// Version     : 1.0
+// Copyright   : It's protected under Beerware
+// GT ID       : 903024992
+// Class       : ECE 8823
+// Assignment  : 3
+// Description : SimdCore Class in C++, Ansi-style
+//============================================================================
 
 #include "SimdCore.h"
 
