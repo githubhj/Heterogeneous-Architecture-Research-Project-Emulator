@@ -19,7 +19,7 @@ above command runs for default config: 4w/8/8/8/8
 
 ##### /data
 ----------
-Given data for execution asm to generate bianries and output for correctness evaluation.
+Given data for execution, asm to generate bianries and output for correctness evaluation.
 
 ##### /docs
 
