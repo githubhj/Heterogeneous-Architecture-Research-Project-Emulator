@@ -133,29 +133,49 @@ int main(int argc, char* argv[]) {
 
 		//General Purpose Length
 		generalPurposeReg	=	stoi(args[3]);
-		if((generalPurposeReg==0) || (generalPurposeReg&(generalPurposeReg-1))){
-			std::cout << "General purpose register number should be power of 2.\n";
-			exit(1);
+        if(generalPurposeReg==0){
+            std::cout << "General Purpose registers cannot be 0.\n";
+            exit(1);
+        }
+        else if(generalPurposeReg&(generalPurposeReg-1)){
+			std::cout << "(Warning:)\tGeneral purpose register number not a power of 2.\n";
+            uint32_t tempVar = generalPurposeReg;
+            uint32_t powerCount=1;
+            while (tempVar >>= 1) {
+                powerCount++;
+            }
+            generalPurposeReg = 1<<powerCount;
+            std::cout << "(Warning:)\tTaking general purpose register a power of two: " << generalPurposeReg << ".\n";
 		}
 
 		//Predicate Register Length
 		predicateReg		=	stoi(args[4]);
-		if((predicateReg==0) || (predicateReg&(predicateReg-1))){
-			std::cout << "Predicate register number should be power of 2.\n";
-			exit(1);
-		}
+        if(predicateReg==0){
+            std::cout << "Predicate registers cannot be 0.\n";
+            exit(1);
+        }
+        else if(predicateReg&(predicateReg-1)){
+            std::cout << "(Warning:)\tPredicate register number not a power of 2.\n";
+            uint32_t tempVar = predicateReg;
+            uint32_t powerCount=1;
+            while (tempVar >>= 1) {
+                powerCount++;
+            }
+            predicateReg = 1<<powerCount;
+            std::cout << "(Warning:)\tTaking predicate register a power of two: " << predicateReg << ".\n";
+        }
 
 		//Simd Lanes
 		simdLanes			=	stoi(args[5]);
-		if((simdLanes==0) || (simdLanes&(simdLanes-1))){
-			std::cout << "SIMD Lanes should be power of 2.\n";
+		if(simdLanes==0){
+			std::cout << "SIMD Lanes cannot be 0.\n";
 			exit(1);
 		}
 
 		//Warp Numbers
 		warpNum				=	stoi(args[6]);
-		if((warpNum==0) || (simdLanes&(warpNum-1))){
-			std::cout << "Warp number should be power of 2.\n";
+		if(warpNum==0){
+			std::cout << "Warp number cannot be 0.\n";
 			exit(1);
 		}
 	}
