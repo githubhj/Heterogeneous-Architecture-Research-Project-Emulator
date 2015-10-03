@@ -278,15 +278,15 @@ bool SimdCore<T>::execute(T instruction, bool debug){
    
 
 		if(debug){
-			std::cout << "----------------------------------------------------------" << "\n";
-			std::cout << std::hex <<	"Instruction:\t" << instruction << "\n";
-			std::cout << std::hex <<	"0x" << programCounter << "\n";
-            std::cout << std::hex <<	"Programcounter:\t" << programCounter << "\n";
-			std::cout << std::hex <<	"Opcode:\t" << opcodeValue << "\n";
-			std::cout << std::hex << 	"GPR Values:" << "GPR1: " << gprNum1 <<  " GPR2: " << gprNum2 << " GPR3: " << gprNum3 << "\n";
-			std::cout << std::hex << 	"PREG Values:" << "PREG1: " << pregNum1 <<  "PREG2: " << pregNum2 << "\n";
-			std::cout << std::hex << 	"Immediate Value:" << immVal;
-			std::cout << "----------------------------------------------------------" << "\n";
+			std::cerr << "----------------------------------------------------------" << "\n";
+			std::cerr << std::hex <<	"Instruction:\t" << instruction << "\n";
+			std::cerr << std::hex <<	"0x" << programCounter << "\n";
+            std::cerr << std::hex <<	"Programcounter:\t" << programCounter << "\n";
+			std::cerr << std::hex <<	"Opcode:\t" << opcodeValue << "\n";
+			std::cerr << std::hex << 	"GPR Values:" << "GPR1: " << gprNum1 <<  " GPR2: " << gprNum2 << " GPR3: " << gprNum3 << "\n";
+			std::cerr << std::hex << 	"PREG Values:" << "PREG1: " << pregNum1 <<  "PREG2: " << pregNum2 << "\n";
+			std::cerr << std::hex << 	"Immediate Value:" << immVal;
+			std::cerr << "----------------------------------------------------------" << "\n";
 		}
     
     //Predicated check
