@@ -11,6 +11,10 @@
 
 #include "MemoryMap.h"
 
+/*MemoryMap Class Constructor
+ params: input binary file, instruction size width
+ function: fills memorymap map with Key:address to value:data
+ */
 MemoryMap::MemoryMap(std::string binaryFileName, uint64_t instSize) {
 	std::ifstream binaryFile;
 	binaryFile.open(binaryFileName,std::ios::binary|std::ios::in);
@@ -30,6 +34,9 @@ MemoryMap::MemoryMap(std::string binaryFileName, uint64_t instSize) {
 	binaryFile.close();
 }
 
+/*MemoryMap::printMemoryBuff() method
+ function: Prints read memory
+ */
 void MemoryMap::printMemoryBuff(){
 	std::cout << "Address:\tInstruction\t" << "\n";
 	for(memoryBuff_t::iterator it = memoryBuff.begin() ; it != memoryBuff.end(); it++){

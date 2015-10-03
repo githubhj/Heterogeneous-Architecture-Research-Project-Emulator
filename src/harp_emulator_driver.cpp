@@ -21,6 +21,12 @@
 
 using namespace std;
 
+/*bool loadOpcodeToInstr
+ params:    ArchSpec_t*.
+ fucntion:  Loads archSpec vector with instrction oopcode to
+            argument mapping.
+ */
+
 bool loadOpcodeToInstr(ArchSpec_t* archSpec){
 	if(archSpec == nullptr){
 		return false;
@@ -93,6 +99,9 @@ bool loadOpcodeToInstr(ArchSpec_t* archSpec){
 	}
 }
 
+/*
+ main(): Driver code
+ */
 int main(int argc, char* argv[]) {
 
 	//Check if arguments for input and output files are present or not
@@ -202,22 +211,27 @@ int main(int argc, char* argv[]) {
     
 	//Initialize GPU
     std::vector< std::shared_ptr<SimdCoreBase> > GPU(simdLanes);
+    //If instruction width is 4
 	if(instructionLength == 4){
         for (uint32_t i=0; i<simdLanes; i++) {
             GPU[i].reset(new SimdCore<uint32_t>(simdSpecPtr,memoryMap));
         }
 	}
+    //Else it is 8
 	else{
         for (uint32_t i=0; i<simdLanes; i++) {
             GPU[i].reset(new SimdCore<uint64_t>(simdSpecPtr,memoryMap));
         }
 	}
     
-    
-	GPU[0]->start(false);
-    ofstream outFile;
+    //Execute GPU's
+    for (uint64_t count =0; count < simdLanes; count++) {
+        GPU[count]->start(false);
+    }
+
     
     //Write to the output file
+    ofstream outFile;
     outFile.open(outputFile);
     outFile << GPU[0]->getOutputData();
     outFile.close();

@@ -25,6 +25,7 @@ SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
     debug_counter = 0;
 };
 
+//Simd constructor
 template<typename T>
 void SimdCore<T>::start(bool debug){
     programCounter =0;
@@ -43,6 +44,7 @@ void SimdCore<T>::start(bool debug){
 	}
 }
 
+//Actually the whole assignment
 template<typename T>
 bool SimdCore<T>::execute(T instruction, bool debug){
     
@@ -902,15 +904,18 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 
 }
 
+//Memory output for a SIMD lane
 template <typename T>
 std::string SimdCore<T>::getOutputData(){
     std::string myStr;
     for (uint64_t i=0; i<outputMemory.size(); i++) {
         myStr += outputMemory[i];
     }
+ 
     return myStr;
 }
 
+//Copy constructor
 template <typename T>
 SimdCore<T>::SimdCore(const SimdCore& other){
     simdSpec 		= other.simdSpec;
