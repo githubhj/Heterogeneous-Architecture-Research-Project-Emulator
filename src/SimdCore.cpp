@@ -15,11 +15,26 @@ template<typename T>
 SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
 	simdSpec 		= simdSpec_i;
 	memoryMap 		= memoryMap_i;
-	gprFile			= new T[simdSpec->gprNum];
-	pregFile		= new bool[simdSpec->pregNum];
-    for (uint32_t count=0; count < simdSpec->instLength; count++) {
-        gprFile[count] = 0;
-        pregFile[count] = false;
+    
+    for (uint64_t i=0; i<simdSpec->simdLaneSize; i++) {
+        gprFile.push_back(new T[simdSpec->gprNum]);
+        for (int j=0; j<simdSpec->gprNum; j++) {
+            gprFile[i][j] = 0;
+        }
+    }
+    
+    for (uint64_t i=0; i<simdSpec->simdLaneSize; i++) {
+        pregFile.push_back(new bool[simdSpec->pregNum]);
+        for (int j=0; j<simdSpec->pregNum; j++) {
+            pregFile[i][j] = false;
+        }
+        
+    }
+    
+    currMask = new bool[simdSpec->simdLaneSize];
+    currMask[0] = true;
+    for (uint64_t i=1; i<simdSpec->simdLaneSize; i++) {
+        currMask[i] = false;
     }
 	programCounter	= 0;
     debug_counter = 0;
@@ -39,14 +54,18 @@ void SimdCore<T>::start(bool debug){
         if (!instruction) {
             break;
         }
-		executeNext = this->execute(instruction, debug);
+        for (uint64_t lane=0; lane < simdSpec->simdLaneSize; lane++) {
+            if (currMask[lane]) {
+                executeNext = this->execute(instruction, debug, lane);
+            }
+        }
         instruction = 0;
-	}
+    }
 }
 
 //Actually the whole assignment
 template<typename T>
-bool SimdCore<T>::execute(T instruction, bool debug){
+bool SimdCore<T>::execute(T instruction, bool debug, uint64_t laneId){
     
     debug_counter++;
     
@@ -107,8 +126,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				gprNum1 		= opcodeWithArgs >> rightShiftVal1;
 				leftShiftVal1 	= regShiftLeftVal + simdSpec->gprBitLength;
 				gprNum2			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
-				gprOut 					= gprFile + gprNum1;
-				gprInput1 				= gprFile + gprNum2;
+				gprOut 					= gprFile[laneId] + gprNum1;
+				gprInput1 				= gprFile[laneId] + gprNum2;
 				break;
 			}
 			case(ArgumentEnum::AC_2IMM):{
@@ -116,7 +135,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				gprNum1 		= opcodeWithArgs >> rightShiftVal1;
 				leftShiftVal1 	= regShiftLeftVal + simdSpec->gprBitLength;
 				immVal			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1);
-				gprOut 			= gprFile + gprNum1;
+				gprOut 			= gprFile[laneId] + gprNum1;
 				immediate 		= immVal;
                 if (immediate >> (rightShiftVal1-1)) {
                     T mask = 0;
@@ -139,9 +158,9 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				gprNum2			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 				leftShiftVal2  	= leftShiftVal1 + simdSpec->gprBitLength;
 				gprNum3 		= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2) >> rightShiftVal3;
-				gprOut 					= gprFile + gprNum1;
-				gprInput1 				= gprFile + gprNum2;
-				gprInput2				= gprFile + gprNum3;
+				gprOut 					= gprFile[laneId] + gprNum1;
+				gprInput1 				= gprFile[laneId] + gprNum2;
+				gprInput2				= gprFile[laneId] + gprNum3;
 				break;
 			}
             
@@ -154,9 +173,9 @@ bool SimdCore<T>::execute(T instruction, bool debug){
                 pregNum2			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
                 leftShiftVal2  	= leftShiftVal1 + simdSpec->pregBitLength;
                 pregNum3 		= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2) >> rightShiftVal3;
-                pregOut 				= pregFile + pregNum1;
-                pregIn1 				= pregFile + pregNum2;
-                pregIn2                 = pregFile + pregNum3;
+                pregOut 				= pregFile[laneId] + pregNum1;
+                pregIn1 				= pregFile[laneId] + pregNum2;
+                pregIn2                 = pregFile[laneId] + pregNum3;
                 break;
             }
 
@@ -168,8 +187,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				gprNum2			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 				leftShiftVal2  	= leftShiftVal1 + simdSpec->gprBitLength;
 				immVal 			= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2);
-				gprOut 			= gprFile + gprNum1;
-				gprInput1 		= gprFile + gprNum2;
+				gprOut 			= gprFile[laneId] + gprNum1;
+				gprInput1 		= gprFile[laneId] + gprNum2;
 				immediate		= immVal;
                 if (immediate >> (rightShiftVal2-1)) {
                     T mask = 0;
@@ -193,9 +212,9 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				gprNum2			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 				leftShiftVal2  	= leftShiftVal1 + simdSpec->gprBitLength;
 				gprNum3 		= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2) >> rightShiftVal3;
-				gprOut 			= gprFile + gprNum1;
-				gprInput1 		= gprFile + gprNum2;
-				gprInput2		= gprFile + gprNum3;
+				gprOut 			= gprFile[laneId] + gprNum1;
+				gprInput1 		= gprFile[laneId] + gprNum2;
+				gprInput2		= gprFile[laneId] + gprNum3;
 				break;
 			}
 
@@ -218,7 +237,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(ArgumentEnum::AC_1REG):{
 				rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
 				gprNum1 		= opcodeWithArgs >> rightShiftVal1;
-				gprInput1 		= gprFile + gprNum1;
+				gprInput1 		= gprFile[laneId] + gprNum1;
 				break;
 			}
 
@@ -230,8 +249,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				gprNum2			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 				leftShiftVal2  	= leftShiftVal1 + simdSpec->gprBitLength;
 				immVal 			= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2);
-				gprInput1 		= gprFile + gprNum1;
-				gprInput2		= gprFile + gprNum2;
+				gprInput1 		= gprFile[laneId] + gprNum1;
+                gprInput2		= gprFile[laneId] + gprNum2;
 				immediate		= immVal;
                 if (immediate >> (rightShiftVal2-1)) {
                     T mask = 0;
@@ -253,8 +272,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				leftShiftVal1 	= regShiftLeftVal + simdSpec->pregBitLength;
 				gprNum1			= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 
-				pregOut					= pregFile + pregNum1;
-				gprInput1 				= gprFile  + gprNum1;
+				pregOut					= pregFile[laneId] + pregNum1;
+				gprInput1 				= gprFile[laneId]  + gprNum1;
 				break;
 			}
 
@@ -265,8 +284,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				leftShiftVal1 	= regShiftLeftVal + simdSpec->pregBitLength;
 				pregNum2		= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
 
-				pregOut			= pregFile 	+ pregNum1;
-				pregIn1 		= pregFile  + pregNum2;
+				pregOut			= pregFile[laneId] 	+ pregNum1;
+				pregIn1 		= pregFile[laneId]  + pregNum2;
 				break;
 			}
 			default:{
@@ -290,10 +309,10 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 		}
     
     //Predicated check
+    uint64_t predRegNum0 =  ((instruction << (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (simdSpec->pregRegField.position - simdSpec->pregRegField.length);
     if(predicateBit){
-        uint32_t predRegNum =  ((instruction << (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (simdSpec->pregRegField.position - simdSpec->pregRegField.length);
-        if(pregFile[predRegNum]==false){
-            programCounter += simdSpec->instLength;
+        if(pregFile[laneId][predRegNum0]==false){
+            nextProgramCounter = programCounter + simdSpec->instLength;
             return true;
         }
     }
@@ -301,25 +320,25 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 		switch(opcodeValue){
 			//NOP
 			case(0):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//di
 			case(1):{
-				programCounter +=  simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//ei
 			case(2):{
-				programCounter +=  simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//tlbadd
 			case(3):{
-				programCounter +=  simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -332,7 +351,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(5):{
 				if(gprInput1 && gprOut){
 					*gprOut = -(*gprInput1);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -341,7 +360,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(6):{
 				if(gprInput1 && gprOut){
 					*gprOut = ~(*gprInput1);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -350,7 +369,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(7):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) & (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -359,7 +378,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(8):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) | (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -368,7 +387,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(9):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) ^ (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -377,7 +396,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(10):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) + (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -386,7 +405,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(11):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) - (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -395,7 +414,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(12):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) * (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -405,7 +424,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprInput1 && gprInput2 && gprOut){
 					if((*gprInput2)!=0){
 						*gprOut = (*gprInput1) / (*gprInput2);
-						programCounter +=  simdSpec->instLength;
+						nextProgramCounter = programCounter + simdSpec->instLength;
 						return true;
 					}
 					else{
@@ -424,7 +443,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprInput1 && gprInput2 && gprOut){
 					if((*gprInput2)!=0){
 						*gprOut = (*gprInput1) % (*gprInput2);
-						programCounter +=  simdSpec->instLength;
+						nextProgramCounter = programCounter + simdSpec->instLength;
 						return true;
 					}
 					else{
@@ -441,7 +460,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(15):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) << (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -450,7 +469,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(16):{
 				if(gprInput1 && gprInput2 && gprOut){
 					*gprOut = (*gprInput1) >> (*gprInput2);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -459,7 +478,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(17):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) & (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -468,7 +487,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(18):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) | (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -477,7 +496,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(19):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) ^ (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -486,7 +505,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(20):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) + (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -495,7 +514,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(21):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) - (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -504,7 +523,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(22):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) * (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -514,7 +533,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprInput1 && gprOut){
 					if((immediate)!=0){
 						*gprOut = (*gprInput1) /(immediate);
-						programCounter +=  simdSpec->instLength;
+						nextProgramCounter = programCounter + simdSpec->instLength;
 						return true;
 					}
 					else{
@@ -534,7 +553,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprInput1 && gprOut){
 					if((immediate)!=0){
 						*gprOut = (*gprInput1) % (immediate);
-						programCounter +=  simdSpec->instLength;
+						nextProgramCounter = programCounter + simdSpec->instLength;
 						return true;
 					}
 					else{
@@ -551,7 +570,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(25):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) << (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -560,7 +579,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(26):{
 				if(gprInput1 && gprOut){
 					*gprOut = (*gprInput1) >> (immediate);
-					programCounter +=  simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 				break;
@@ -569,7 +588,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(27):{
 				if(gprOut){
 					*gprOut = programCounter + simdSpec->instLength;
-					programCounter +=  (immediate + simdSpec->instLength);
+					nextProgramCounter = programCounter + (immediate + simdSpec->instLength);
 					return true;
 				}
 				break;
@@ -579,8 +598,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprInput1 && gprOut){
 					T prevProgramCounter = programCounter;
 					*gprOut = programCounter + simdSpec->instLength;
-					programCounter =  (*gprInput1);
-					if(programCounter == prevProgramCounter){
+					nextProgramCounter =  (*gprInput1);
+					if(nextProgramCounter == programCounter){
 						return false;
 					}
 					return true;
@@ -590,8 +609,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			//jmpi
 			case(29):{
 				T prevProgramCounter = programCounter;
-				programCounter +=  (immediate + simdSpec->instLength);
-				if(programCounter == prevProgramCounter){
+				nextProgramCounter = programCounter + (immediate + simdSpec->instLength);
+				if(programCounter == nextProgramCounter){
 					return false;
 				}
 				return true;
@@ -602,8 +621,8 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(30):{
 				if(gprInput1){
 					T prevProgramCounter = programCounter;
-					programCounter =  (*gprInput1);
-					if(programCounter == prevProgramCounter){
+					nextProgramCounter =  (*gprInput1);
+					if(programCounter == nextProgramCounter){
 						return false;
 					}
 					return true;
@@ -612,26 +631,59 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			}
 			//clone
 			case(31):{
-				programCounter += simdSpec->instLength;
-				return true;
+				nextProgramCounter = programCounter + simdSpec->instLength;
+                if(gprInput1){
+                    for(int i=0 ; i< simdSpec->gprNum ; i++){
+                        gprFile[*gprInput1][i] = gprFile[laneId][i];
+                    }
+                    return true;
+                }
+				
 				break;
 			}
 			//jalis
 			case(32):{
-				programCounter += simdSpec->instLength;
-				return true;
+				
+                if(gprOut && gprInput1){
+                    *gprOut = programCounter + simdSpec->instLength;
+                    nextProgramCounter = programCounter + (immediate + simdSpec->instLength);
+                    for (uint64_t i =0 ; i < *gprInput1; i++) {
+                        nextActMask[i] = true;
+                    }
+                    for (uint64_t i = *gprInput1; i < simdSpec->simdLaneSize; i++) {
+                        nextActMask[i] = false;
+                    }
+                    return true;
+                }
 				break;
 			}
 			//jalrs
 			case(33):{
-				programCounter += simdSpec->instLength;
-				return true;
+                if(gprOut && gprInput1 && gprInput2){
+                    *gprOut = programCounter + simdSpec->instLength;
+                    nextProgramCounter = *gprInput2;
+                    for (uint64_t i =0 ; i < *gprInput1; i++) {
+                        nextActMask[i] = true;
+                    }
+                    for (uint64_t i = *gprInput1; i < simdSpec->simdLaneSize; i++) {
+                        nextActMask[i] = false;
+                    }
+                    return true;
+                }
 				break;
 			}
 			//jmprt
 			case(34):{
-				programCounter += simdSpec->instLength;
-				return true;
+                if(gprInput1){
+                    *gprOut = programCounter + simdSpec->instLength;
+                    nextProgramCounter = *gprInput1;
+                    nextActMask[laneId] = true;
+                    for (uint64_t i = 0; i < simdSpec->simdLaneSize; i++) {
+                        if(i!=laneId)
+                            nextActMask[i] = false;
+                    }
+                    return true;
+                }
 				break;
 			}
 			//ld
@@ -649,7 +701,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
                         
                     }
 					*gprOut = temp_data;
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -660,7 +712,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprInput1 && gprInput2){
 					T actualAddr = (*gprInput2) + (immediate);
 
-					if(actualAddr==simdSpec->writeAddr){
+					if(actualAddr==simdSpec->writeAddr && laneId == 0){
 						outputMemory.push_back((char)(*gprInput1));
 					}
 					else{
@@ -671,7 +723,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
                         }
 						
 					}
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -681,7 +733,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(37):{
 				if(gprOut){
 					*gprOut = immediate;
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -696,7 +748,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
                     else{
                         *pregOut = false;
                     }
-					programCounter += simdSpec->instLength;
+                    nextProgramCounter  = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -706,7 +758,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(39):{
 				if(pregIn1&&pregIn2&&pregOut){
 					*pregOut = (*pregIn1) & (*pregIn2);
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -716,7 +768,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(40):{
 				if(pregIn1&&pregIn2&&pregOut){
 					*pregOut = (*pregIn1) | (*pregIn2);
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -726,7 +778,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(41):{
 				if(pregIn1&&pregIn2&&pregOut){
 					*pregOut = (*pregIn1) ^ (*pregIn2);
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -736,7 +788,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			case(42):{
 				if(pregIn1&&pregOut){
 					*pregOut = !(*pregIn1);
-					programCounter += simdSpec->instLength;
+					nextProgramCounter = programCounter + simdSpec->instLength;
 					return true;
 				}
 
@@ -751,7 +803,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
                     else{
                         *pregOut = false;
                     }
-                    programCounter += simdSpec->instLength;
+                    nextProgramCounter = programCounter + simdSpec->instLength;
                     return true;
 				}
 				break;
@@ -765,7 +817,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
                     else{
                         *pregOut  = false;
                     }
-                    programCounter += simdSpec->instLength;
+                    nextProgramCounter = programCounter + simdSpec->instLength;
                     return true;
 				}
 				break;
@@ -778,31 +830,31 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 			}
 			//trap
 			case(46):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//jmpru
 			case(47):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//skep
 			case(48):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter  = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//reti
 			case(49):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//tlbrm
 			case(50):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -811,7 +863,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1){
 					*gprOut = *gprInput1;
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -820,7 +872,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1){
 					*gprOut = *gprInput1;
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -829,7 +881,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1&&gprInput2){
 					*gprOut = *gprInput1 + *gprInput2;
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -838,7 +890,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1&&gprInput2){
 					*gprOut = *gprInput1 - *gprInput2;
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -847,7 +899,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1&&gprInput2){
 					*gprOut = (*gprInput1) * (*gprInput2);
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -856,7 +908,7 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1&&gprInput2){
 					*gprOut = (*gprInput1) / (*gprInput2);
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -865,31 +917,69 @@ bool SimdCore<T>::execute(T instruction, bool debug){
 				if(gprOut&&gprInput1&&gprInput2){
 					*gprOut = (*gprInput1) / (*gprInput2);
 				}
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//wspawn
 			case(58):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
 			//split
 			case(59):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
+                reconvStackElem<T> elem1;
+                elem1.nextPC = -1;
+                elem1.activityMask = new bool[simdSpec->simdLaneSize];
+                for(uint64_t count = 0 ; count < simdSpec->simdLaneSize; count++){
+                    elem1.activityMask[count] = currMask[count];
+                }
+                reconvStack.push(elem1);
+                
+                bool* pred = new bool [simdSpec->simdLaneSize];
+                
+                for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
+                    bool temp  = (!predicateBit || pregFile[count][predRegNum0]) && currMask[count];
+                    pred[count] = temp;
+                }
+                
+                elem1.nextPC = nextProgramCounter;
+                
+                for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
+                    elem1.activityMask[count] = (currMask[count] && !pred[count]);
+                }
+                
+                reconvStack.push(elem1);
+                
+                for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
+                    nextActMask[count] = currMask[count] && pred[count];
+                }
+                
 				return true;
 				break;
 			}
 			//join
 			case(60):{
-				programCounter += simdSpec->instLength;
+                if(reconvStack.top().nextPC!=-1){
+                    nextProgramCounter = reconvStack.top().nextPC;
+                }
+                else{
+                    nextProgramCounter = programCounter + simdSpec->instLength;
+                }
+                
+                for(uint64_t count =0; count<simdSpec->simdLaneSize; count++){
+                    nextActMask[count]  = reconvStack.top().activityMask[count];
+                }
+                reconvStack.pop();
+                
 				return true;
 				break;
 			}
 			//bar
 			case(61):{
-				programCounter += simdSpec->instLength;
+				nextProgramCounter = programCounter + simdSpec->instLength;
 				return true;
 				break;
 			}
@@ -926,8 +1016,10 @@ void SimdCore<T>::clearGprFile(){
 //Clear PREG register file
 template <typename T>
 void SimdCore<T>::clearPregFile(){
-    for (uint32_t i=0; i < simdSpec->gprNum; i++) {
-        gprFile[i]  =   DEFAULT_PREGVAL;
+    for (uint64_t i = 0; i < simdSpec->simdLaneSize ; i++) {
+        for (uint64_t j =0 ; j < simdSpec->gprNum; j++) {
+            gprFile[i][j] = 0;
+        }
     }
 }
 
@@ -954,6 +1046,10 @@ void SimdCore<T>::reset(){
     clearOutPutMemory();
 }
 
+template <typename T>
+void SimdCore<T>::executeNextPC(){
+    
+}
 
 
 //Copy constructor
@@ -961,20 +1057,34 @@ template <typename T>
 SimdCore<T>::SimdCore(const SimdCore& other){
     simdSpec 		= other.simdSpec;
     memoryMap 		= other.memoryMap;
-    gprFile			= new T[simdSpec->gprNum];
-    pregFile		= new bool[simdSpec->pregNum];
-    for (uint32_t count=0; count < simdSpec->instLength; count++) {
-        gprFile[count] = other.gprFile[count];
-        pregFile[count] = other.pregFile[count];
+    for (uint64_t i=0; i < simdSpec->simdLaneSize; i++) {
+        gprFile.push_back(new T[simdSpec->gprNum]);
+        pregFile.push_back(new bool[simdSpec->pregNum]);
     }
+    
+    for (uint64_t i=0; i < simdSpec->simdLaneSize; i++){
+        for (uint64_t j=0; j < simdSpec->gprNum; j++) {
+            gprFile[i][j] = other.gprFile[i][j];
+        }
+    }
+    
+    for (uint64_t i=0; i < simdSpec->simdLaneSize; i++){
+        for (uint64_t j=0; j < simdSpec->pregNum; j++) {
+            pregFile[i][j] = other.pregFile[i][j];
+        }
+    }
+    
     programCounter	= other.programCounter;
     debug_counter = other.debug_counter;
 }
 
 template <typename T>
 SimdCore<T>::~SimdCore(){
-    delete[] gprFile;
-    delete[] pregFile;
+    for (uint64_t count =0; count < simdSpec->simdLaneSize; count++) {
+        delete[] gprFile[count];
+        delete[] pregFile[count];
+    }
+    
 }
 
 template class SimdCore<unsigned int>;

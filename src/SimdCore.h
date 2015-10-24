@@ -15,9 +15,17 @@
 #include <cmath>
 #include <map>
 #include "MemoryMap.h"
+#include <stack>
 
 #define DEFAULT_GPRVAL 0UL
 #define DEFAULT_PREGVAL false
+
+//Reconvergence Stack element
+template<typename T>
+struct reconvStackElem {
+    T nextPC;
+    bool* activityMask;
+};
 
 typedef std::vector<char> outputmemory_t;
 
@@ -40,6 +48,8 @@ typedef struct _archSpec{
 	uint32_t pregNum;
 	uint32_t pregBitLength;
 	uint64_t writeAddr;
+    uint64_t warpSize;
+    uint64_t simdLaneSize;
 
 	//Vector pointer for opcode to argument map
 	std::vector<ArgumentEnum_t> opcodeToArgument;
@@ -61,6 +71,7 @@ public:
 
 	SimdCoreBase(){};
 	virtual void start(bool debug)=0;
+    virtual void executeNextPC()=0;
     virtual std::string getOutputData()=0;
     virtual void reset()=0;
     //outputmemory
@@ -78,12 +89,21 @@ private:
 	MemoryMap* memoryMap;
 	
 	//Program counter and register file
-	T 					programCounter;
-	T*					gprFile;
-	bool* 				pregFile;
+	T                       programCounter;
+    T                       nextProgramCounter;
+    std::vector<T*>         gprFile;
+    std::vector<bool*> 		pregFile;
+    
+    //curr Mask
+    bool* currMask;
+    //Next Active Mask
+    bool* nextActMask;
     
     //debug counter;
     uint64_t debug_counter;
+    
+    //Warp Stack
+    std::stack<reconvStackElem<T> > reconvStack;
 
 public:
 
@@ -102,7 +122,9 @@ public:
     //Get output memory into a string
     std::string getOutputData();
 
-	bool execute(T instruction, bool debug);
+	bool execute(T instruction, bool debug, uint64_t laneID);
+    
+    void executeNextPC();
     
     void reset(void);
     void clearGprFile(void);
