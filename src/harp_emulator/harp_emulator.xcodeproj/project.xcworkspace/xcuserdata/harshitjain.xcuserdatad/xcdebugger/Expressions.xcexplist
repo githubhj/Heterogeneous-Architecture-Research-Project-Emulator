@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "main:harp_emulator_driver.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "SimdCore&lt;unsigned int&gt;::start(bool):SimdCore.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "gprFile">
+            </PersistentString>
+            <PersistentString
+               value = "GPU">
+            </PersistentString>
+            <PersistentString
+               value = "reconvStack">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SimdCore&lt;unsigned int&gt;::SimdCore(_archSpec*, MemoryMap*):SimdCore.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "gprFile">
+            </PersistentString>
+            <PersistentString
+               value = "simdSpec">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long):SimdCore.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "gprFile">
+            </PersistentString>
+            <PersistentString
+               value = "reconvStack">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

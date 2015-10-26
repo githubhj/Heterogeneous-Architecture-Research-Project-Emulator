@@ -207,6 +207,8 @@ int main(int argc, char* argv[]) {
 
 	simdSpecPtr->gprBitLength  = gprBitLength;
 	simdSpecPtr->pregBitLength = pregBitLength;
+    simdSpecPtr->simdLaneSize  = simdLanes;
+    simdSpecPtr->warpSize      = warpNum;
 
 	//Set opcode and Predicate fields
 	if(instructionLength == 4){
@@ -237,25 +239,24 @@ int main(int argc, char* argv[]) {
     std::vector< std::shared_ptr<SimdCoreBase> > GPU(simdLanes);
     //If instruction width is 4
 	if(instructionLength == 4){
-        for (uint32_t i=0; i<simdLanes; i++) {
-            GPU[i].reset(new SimdCore<uint32_t>(simdSpecPtr,memoryMap));
-        }
+        GPU[0].reset(new SimdCore<uint32_t>(simdSpecPtr,memoryMap));
 	}
     //Else it is 8
 	else{
-        for (uint32_t i=0; i<simdLanes; i++) {
-            GPU[i].reset(new SimdCore<uint64_t>(simdSpecPtr,memoryMap));
-        }
+        GPU[0].reset(new SimdCore<uint64_t>(simdSpecPtr,memoryMap));
 	}
     
-    //Execute GPU's
-    for (uint32_t warpID =0 ; warpID < warpNum; warpID++) {
-        for (uint64_t laneID=0; laneID < simdLanes; laneID++) {
-            GPU[laneID]->reset();
-            GPU[laneID]->start(false);
-            threadOutputMemory[warpID*simdLanes + laneID] = GPU[laneID]->outputMemory;
-        }
-    }
+    GPU[0]->reset();
+    GPU[0]->start(true);
+    
+//    //Execute GPU's
+//    for (uint32_t warpID =0 ; warpID < warpNum; warpID++) {
+//        for (uint64_t laneID=0; laneID < simdLanes; laneID++) {
+//            GPU[laneID]->reset();
+//            GPU[laneID]->start(false);
+//            threadOutputMemory[warpID*simdLanes + laneID] = GPU[laneID]->outputMemory;
+//        }
+//    }
    
 
     

@@ -61,6 +61,12 @@
             ReferencedContainer = "container:harp_emulator.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "/Users/harshitjain/Downloads/harp-parallel-programs/bin-1warp/binsearch.bin output 4 8 8 8 1"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

@@ -13,29 +13,49 @@
 
 template<typename T>
 SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
+    
+    //Assign memory map and Arch specification
 	simdSpec 		= simdSpec_i;
 	memoryMap 		= memoryMap_i;
     
+    //Init gprFile
     for (uint64_t i=0; i<simdSpec->simdLaneSize; i++) {
         gprFile.push_back(new T[simdSpec->gprNum]);
         for (int j=0; j<simdSpec->gprNum; j++) {
-            gprFile[i][j] = 0;
+            gprFile[i][j] = DEFAULT_GPRVAL;
         }
     }
     
+    //Init PregFile
     for (uint64_t i=0; i<simdSpec->simdLaneSize; i++) {
         pregFile.push_back(new bool[simdSpec->pregNum]);
         for (int j=0; j<simdSpec->pregNum; j++) {
-            pregFile[i][j] = false;
+            pregFile[i][j] = DEFAULT_PREGVAL;
         }
         
     }
     
+    //Init Mask
     currMask = new bool[simdSpec->simdLaneSize];
+    nextActMask = new bool[simdSpec->simdLaneSize];
     currMask[0] = true;
+    nextActMask[0] = true;
     for (uint64_t i=1; i<simdSpec->simdLaneSize; i++) {
         currMask[i] = false;
+        nextActMask[i] = false;
     }
+    
+    //Init Predicate Signature for split and join
+    predSign = new bool[simdSpec->simdLaneSize];
+    for (uint64_t pC=0; pC<simdSpec->simdLaneSize; pC++) {
+        predSign[pC] = false;
+    }
+    
+    //Init split and join signature
+    splitSign = false;
+    joinSign  = false;
+    
+    //Init Program Counter
 	programCounter	= 0;
     debug_counter = 0;
 };
@@ -43,22 +63,97 @@ SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
 //Simd constructor
 template<typename T>
 void SimdCore<T>::start(bool debug){
-    programCounter =0;
+    
+    //Local control variables
 	bool executeNext = true;
     T instruction;
+    
+    //Execute till loop
 	while(executeNext){
+        //PC =  NPC
+        programCounter =nextProgramCounter;
+        
+        //Curr Mask = Next Mask
+        for (uint64_t count =0; count < simdSpec->simdLaneSize; count++) {
+            currMask[count] = nextActMask[count];
+        }
+        
+        //Get Instruction
         for (uint64_t count = 0; count <simdSpec->instLength; count++) {
             uint64_t tempAddr = programCounter + simdSpec->instLength -1 - count;
             instruction = (instruction << CHAR_BIT) | (uint64_t)memoryMap->memoryBuff[tempAddr];
         }
-        if (!instruction) {
-            break;
-        }
+        
+//        //If Instruction is 0
+//        if (!instruction) {
+//            break;
+//        }
+        
+        //Execute Per lane
         for (uint64_t lane=0; lane < simdSpec->simdLaneSize; lane++) {
             if (currMask[lane]) {
                 executeNext = this->execute(instruction, debug, lane);
             }
         }
+        
+        //Check if last execution was split
+        if (splitSign) {
+            
+            //Make split sign false
+            splitSign = false;
+            
+            //Temp stack elem
+            reconvStackElem<T> elem1;
+            
+            //Push arbit PC and curr mask
+            elem1.nextPC = -1;
+            elem1.activityMask = new bool[simdSpec->simdLaneSize];
+            for(uint64_t count = 0 ; count < simdSpec->simdLaneSize; count++){
+                elem1.activityMask[count] = currMask[count];
+            }
+            reconvStack.push(elem1);
+            
+            //Temp stack elem
+            reconvStackElem<T> elem2;
+            
+            //Push Next PC and ~next mask
+            elem2.nextPC = nextProgramCounter;
+            elem2.activityMask = new bool[simdSpec->simdLaneSize];
+            for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
+                elem2.activityMask[count] = (currMask[count] && !predSign[count]);
+            }
+            
+            reconvStack.push(elem2);
+            
+            //Change next mask
+            for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
+                nextActMask[count] = currMask[count] && predSign[count];
+            }
+            
+            //Set predicate signature to 0
+            for (uint64_t pC=0; pC < simdSpec->simdLaneSize; pC++) {
+                predSign[pC] = false;
+            }
+
+        }
+        
+        //check if join was executed last
+        if(joinSign){
+            joinSign = false;
+            
+            if(reconvStack.top().nextPC!=-1){
+                nextProgramCounter = reconvStack.top().nextPC;
+            }
+            else{
+                nextProgramCounter = programCounter + simdSpec->instLength;
+            }
+            
+            for(uint64_t count =0; count<simdSpec->simdLaneSize; count++){
+                nextActMask[count]  = reconvStack.top().activityMask[count];
+            }
+            reconvStack.pop();
+        }
+        
         instruction = 0;
     }
 }
@@ -296,17 +391,7 @@ bool SimdCore<T>::execute(T instruction, bool debug, uint64_t laneId){
     
    
 
-		if(debug){
-			std::cerr << "----------------------------------------------------------" << "\n";
-			std::cerr << std::hex <<	"Instruction:\t" << instruction << "\n";
-			std::cerr << std::hex <<	"0x" << programCounter << "\n";
-            std::cerr << std::hex <<	"Programcounter:\t" << programCounter << "\n";
-			std::cerr << std::hex <<	"Opcode:\t" << opcodeValue << "\n";
-			std::cerr << std::hex << 	"GPR Values:" << "GPR1: " << gprNum1 <<  " GPR2: " << gprNum2 << " GPR3: " << gprNum3 << "\n";
-			std::cerr << std::hex << 	"PREG Values:" << "PREG1: " << pregNum1 <<  "PREG2: " << pregNum2 << "\n";
-			std::cerr << std::hex << 	"Immediate Value:" << immVal;
-			std::cerr << "----------------------------------------------------------" << "\n";
-		}
+		
     
     //Predicated check
     uint64_t predRegNum0 =  ((instruction << (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (simdSpec->pregRegField.position - simdSpec->pregRegField.length);
@@ -315,6 +400,65 @@ bool SimdCore<T>::execute(T instruction, bool debug, uint64_t laneId){
             nextProgramCounter = programCounter + simdSpec->instLength;
             return true;
         }
+    }
+    
+    if(debug){
+        std::cerr << "----------------------------------------------------------" << "\n";
+        std::cerr << std::hex <<	"Instruction:\t0x" << instruction << "\n";
+        std::cerr << std::hex <<	"Programcounter:\t0x" << programCounter << "\n";
+        std::cerr << std::hex <<    "------------------------------------------------------\n";
+        std::cerr << std::hex <<    "| " << predicateBit << " | " << predRegNum0 << " | "<< opcodeValue << " |\n";
+        std::cerr << std::hex <<    "------------------------------------------------------\n";
+        
+        std::cerr << std::hex << 	"GPR Values:" << "GPR1: " << gprNum1 <<  " GPR2: " << gprNum2 << " GPR3: " << gprNum3 << "\n";
+        std::cerr << std::hex << 	"PREG Values:" << "PREG1: " << pregNum1 <<  "PREG2: " << pregNum2 << "\n";
+        std::cerr << std::hex << 	"Immediate Value:" << immVal << "\n";
+        std::cerr << std::hex <<    "\nRegister File:";
+        for (uint64_t gprCount=0; gprCount < simdSpec->gprNum; gprCount++) {
+            std::cerr << std::hex << "\nr"<<gprCount<<"\t";
+            for(uint64_t laneCount =0; laneCount < gprFile.size(); laneCount++){
+                std::cerr << std::hex << "0x" << gprFile[laneCount][gprCount] << " ";
+            }
+        }
+        
+         std::cerr << std::hex <<    "\n\nPreg Register File:";
+        
+        for (uint64_t pregCount=0; pregCount < simdSpec->pregNum; pregCount++) {
+            std::cerr << std::hex << "\npreg"<<pregCount<<"\t";
+            for(uint64_t laneCount =0; laneCount < pregFile.size(); laneCount++){
+                std::cerr << std::hex << "0x" << pregFile[laneCount][pregCount] << " ";
+            }
+        }
+        
+        std::cerr << std::hex <<    "\n\nActivity Mask File:\n";
+        
+        std::cerr << std::hex <<    "------------------------------------\n";
+        for (uint64_t maskCount =0 ; maskCount < simdSpec->simdLaneSize; maskCount++) {
+            std::cerr << std::hex << " | " << currMask[maskCount];
+        }
+        std::cerr << std::hex <<    " |\n------------------------------------\n";
+        
+        
+        if(!reconvStack.empty()){
+            std::cerr << std::hex <<    "\n\nReconvergence Stack top Program Counter:\n";
+            std::cerr << std::hex << reconvStack.top().nextPC;
+            
+            std::cerr << std::hex <<    "\n\nReconvergence Stack top Mask:\n";
+            
+            std::cerr << std::hex <<    "------------------------------------\n";
+            for (uint64_t maskCount =0 ; maskCount < simdSpec->simdLaneSize; maskCount++) {
+                std::cerr << std::hex << " | " << reconvStack.top().activityMask[maskCount];
+            }
+            
+            std::cerr << std::hex <<    " |\n------------------------------------\n";
+
+        }
+       
+        
+        
+        std::cerr << "\nInst Num: "<< debug_counter << "\n";
+        
+        std::cerr << "----------------------------------------------------------" << "\n";
     }
 
 		switch(opcodeValue){
@@ -636,6 +780,10 @@ bool SimdCore<T>::execute(T instruction, bool debug, uint64_t laneId){
                     for(int i=0 ; i< simdSpec->gprNum ; i++){
                         gprFile[*gprInput1][i] = gprFile[laneId][i];
                     }
+                    for(int i=0 ; i< simdSpec->pregNum ; i++){
+                        pregFile[*gprInput1][i] = pregFile[laneId][i];
+                    }
+                    
                     return true;
                 }
 				
@@ -930,49 +1078,18 @@ bool SimdCore<T>::execute(T instruction, bool debug, uint64_t laneId){
 			//split
 			case(59):{
 				nextProgramCounter = programCounter + simdSpec->instLength;
-                reconvStackElem<T> elem1;
-                elem1.nextPC = -1;
-                elem1.activityMask = new bool[simdSpec->simdLaneSize];
-                for(uint64_t count = 0 ; count < simdSpec->simdLaneSize; count++){
-                    elem1.activityMask[count] = currMask[count];
-                }
-                reconvStack.push(elem1);
                 
-                bool* pred = new bool [simdSpec->simdLaneSize];
+                splitSign = true;
                 
-                for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
-                    bool temp  = (!predicateBit || pregFile[count][predRegNum0]) && currMask[count];
-                    pred[count] = temp;
-                }
-                
-                elem1.nextPC = nextProgramCounter;
-                
-                for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
-                    elem1.activityMask[count] = (currMask[count] && !pred[count]);
-                }
-                
-                reconvStack.push(elem1);
-                
-                for (uint64_t count =0 ; count < simdSpec->simdLaneSize; count++) {
-                    nextActMask[count] = currMask[count] && pred[count];
-                }
+                predSign[laneId] = (!predicateBit || pregFile[laneId][predRegNum0]) && currMask[laneId];
                 
 				return true;
 				break;
 			}
 			//join
 			case(60):{
-                if(reconvStack.top().nextPC!=-1){
-                    nextProgramCounter = reconvStack.top().nextPC;
-                }
-                else{
-                    nextProgramCounter = programCounter + simdSpec->instLength;
-                }
                 
-                for(uint64_t count =0; count<simdSpec->simdLaneSize; count++){
-                    nextActMask[count]  = reconvStack.top().activityMask[count];
-                }
-                reconvStack.pop();
+                joinSign = true;
                 
 				return true;
 				break;
@@ -1008,8 +1125,10 @@ std::string SimdCore<T>::getOutputData(){
 //Clear GPR register File
 template <typename T>
 void SimdCore<T>::clearGprFile(){
-    for (uint32_t i=0; i < simdSpec->gprNum; i++) {
-        gprFile[i]  =   DEFAULT_GPRVAL;
+    for (uint64_t i = 0 ; i < simdSpec->simdLaneSize; i++) {
+        for (uint64_t j =0 ; j < simdSpec->gprNum; j++) {
+             gprFile[i][j]  =   DEFAULT_GPRVAL;
+        }
     }
 }
 
@@ -1017,8 +1136,8 @@ void SimdCore<T>::clearGprFile(){
 template <typename T>
 void SimdCore<T>::clearPregFile(){
     for (uint64_t i = 0; i < simdSpec->simdLaneSize ; i++) {
-        for (uint64_t j =0 ; j < simdSpec->gprNum; j++) {
-            gprFile[i][j] = 0;
+        for (uint64_t j =0 ; j < simdSpec->pregNum; j++) {
+            pregFile[i][j] = DEFAULT_PREGVAL;
         }
     }
 }
@@ -1027,6 +1146,7 @@ void SimdCore<T>::clearPregFile(){
 template <typename T>
 void SimdCore<T>::clearProgramCounter(){
     programCounter = 0;
+    nextProgramCounter =0;
 }
 
 
@@ -1037,12 +1157,28 @@ void SimdCore<T>::clearOutPutMemory(){
     outputMemory.shrink_to_fit();
 }
 
+template <typename T>
+void SimdCore<T>::clearActivityMask(){
+    int maskVal = DEFAULT_ACTIVITYMSK;
+    for (int i=0; i < simdSpec->simdLaneSize; i++) {
+        if (maskVal&(1<<i)) {
+            currMask[i] = true;
+            nextActMask[i] = true;
+        }
+        else{
+            currMask[i] = false;
+            nextActMask[i] = false;
+        }
+    }
+}
+
 //Reset the object
 template <typename T>
 void SimdCore<T>::reset(){
     clearGprFile();
     clearPregFile();
     clearProgramCounter();
+    clearActivityMask();
     clearOutPutMemory();
 }
 

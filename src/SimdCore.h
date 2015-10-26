@@ -19,6 +19,7 @@
 
 #define DEFAULT_GPRVAL 0UL
 #define DEFAULT_PREGVAL false
+#define DEFAULT_ACTIVITYMSK 1UL
 
 //Reconvergence Stack element
 template<typename T>
@@ -104,7 +105,16 @@ private:
     
     //Warp Stack
     std::stack<reconvStackElem<T> > reconvStack;
-
+    
+    //split signature
+    bool splitSign;
+    
+    //join signature
+    bool joinSign;
+    
+    //join signature
+    bool* predSign;
+    
 public:
 
 	//Constructor
@@ -121,7 +131,14 @@ public:
     
     //Get output memory into a string
     std::string getOutputData();
-
+    
+    //Fetch next instruction
+    T fetch();
+    
+    //Decode
+    uint64_t decode(T);
+    
+    //Execute
 	bool execute(T instruction, bool debug, uint64_t laneID);
     
     void executeNextPC();
@@ -131,6 +148,7 @@ public:
     void clearPregFile(void);
     void clearProgramCounter(void);
     void clearOutPutMemory(void);
+    void clearActivityMask(void);
 
 	~SimdCore();
 };

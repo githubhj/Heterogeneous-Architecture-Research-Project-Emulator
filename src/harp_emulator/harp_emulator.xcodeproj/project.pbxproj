@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		932B7EED1BD8585200A793A5 /* GpuCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE51BD8585200A793A5 /* GpuCore.cpp */; settings = {ASSET_TAGS = (); }; };
 		932B7EEE1BD8585200A793A5 /* harp_emulator_driver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE71BD8585200A793A5 /* harp_emulator_driver.cpp */; settings = {ASSET_TAGS = (); }; };
 		932B7EEF1BD8585200A793A5 /* MemoryMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE91BD8585200A793A5 /* MemoryMap.cpp */; settings = {ASSET_TAGS = (); }; };
 		932B7EF01BD8585200A793A5 /* SimdCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EEB1BD8585200A793A5 /* SimdCore.cpp */; settings = {ASSET_TAGS = (); }; };
-		932B7EF31BD880C800A793A5 /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EF11BD880C800A793A5 /* Warp.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,16 +26,12 @@
 
 /* Begin PBXFileReference section */
 		932B7EDB1BD8583F00A793A5 /* harp_emulator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = harp_emulator; sourceTree = BUILT_PRODUCTS_DIR; };
-		932B7EE51BD8585200A793A5 /* GpuCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GpuCore.cpp; path = ../GpuCore.cpp; sourceTree = "<group>"; };
-		932B7EE61BD8585200A793A5 /* GpuCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GpuCore.h; path = ../GpuCore.h; sourceTree = "<group>"; };
 		932B7EE71BD8585200A793A5 /* harp_emulator_driver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = harp_emulator_driver.cpp; path = ../harp_emulator_driver.cpp; sourceTree = "<group>"; };
 		932B7EE81BD8585200A793A5 /* harp_emulator_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = harp_emulator_driver.h; path = ../harp_emulator_driver.h; sourceTree = "<group>"; };
 		932B7EE91BD8585200A793A5 /* MemoryMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryMap.cpp; path = ../MemoryMap.cpp; sourceTree = "<group>"; };
 		932B7EEA1BD8585200A793A5 /* MemoryMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryMap.h; path = ../MemoryMap.h; sourceTree = "<group>"; };
 		932B7EEB1BD8585200A793A5 /* SimdCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimdCore.cpp; path = ../SimdCore.cpp; sourceTree = "<group>"; };
 		932B7EEC1BD8585200A793A5 /* SimdCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimdCore.h; path = ../SimdCore.h; sourceTree = "<group>"; };
-		932B7EF11BD880C800A793A5 /* Warp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Warp.cpp; path = ../Warp.cpp; sourceTree = "<group>"; };
-		932B7EF21BD880C800A793A5 /* Warp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Warp.h; path = ../Warp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,10 +48,6 @@
 		932B7ED21BD8583F00A793A5 = {
 			isa = PBXGroup;
 			children = (
-				932B7EF11BD880C800A793A5 /* Warp.cpp */,
-				932B7EF21BD880C800A793A5 /* Warp.h */,
-				932B7EE51BD8585200A793A5 /* GpuCore.cpp */,
-				932B7EE61BD8585200A793A5 /* GpuCore.h */,
 				932B7EE71BD8585200A793A5 /* harp_emulator_driver.cpp */,
 				932B7EE81BD8585200A793A5 /* harp_emulator_driver.h */,
 				932B7EE91BD8585200A793A5 /* MemoryMap.cpp */,
@@ -141,10 +131,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				932B7EEF1BD8585200A793A5 /* MemoryMap.cpp in Sources */,
-				932B7EED1BD8585200A793A5 /* GpuCore.cpp in Sources */,
 				932B7EEE1BD8585200A793A5 /* harp_emulator_driver.cpp in Sources */,
 				932B7EF01BD8585200A793A5 /* SimdCore.cpp in Sources */,
-				932B7EF31BD880C800A793A5 /* Warp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +249,7 @@
 				932B7EE41BD8583F00A793A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
