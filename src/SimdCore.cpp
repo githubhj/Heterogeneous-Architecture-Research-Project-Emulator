@@ -1035,7 +1035,7 @@ void SimdCore<T>::start(bool debug){
         
         resetOperands();
         
-        if (debug_counter > 4418864) {
+        if (debug_counter > 900) {
             instruction = fetch(true);
             opCodeVal = decode(instruction, true);
         }
@@ -1131,7 +1131,7 @@ void SimdCore<T>::start(bool debug){
             reconvStack.pop();
         }
 
-        if(debug_counter >  4418864){
+        if(debug_counter >  900){
         if (debug) {
             
             std::cerr << std::hex <<    "\nRegister File:";
@@ -1184,7 +1184,7 @@ void SimdCore<T>::start(bool debug){
 //        
         //std::cerr << std::hex << "0x" << programCounter << "\n";
         
-        if(debug_counter == 4418867){
+        if(debug_counter == 922){
             int ab =10;
        }
 
