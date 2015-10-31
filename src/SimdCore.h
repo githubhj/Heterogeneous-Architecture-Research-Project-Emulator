@@ -100,6 +100,17 @@ private:
     //Next Active Mask
     bool* nextActMask;
     
+    //Instruction Operands
+    uint64_t    gprSrc[2];
+    uint64_t    gprDest[1];
+    uint64_t    pregSrc[2];
+    uint64_t    pregDest[1];
+    T           immediate;
+    bool        predicateBit;
+    uint64_t    predReg;
+    
+    void resetOperands();
+    
     //debug counter;
     uint64_t debug_counter;
     
@@ -134,11 +145,15 @@ public:
     
     //Fetch next instruction
     T fetch();
+    T fetch(bool debug);
     
     //Decode
-    uint64_t decode(T);
+    uint64_t decode(T instruction);
+    uint64_t decode(T instruction,bool debug);
     
     //Execute
+    bool execute(uint64_t opCodeValue, uint64_t laneID);
+    bool execute(uint64_t opCodeValue, uint64_t laneID, bool debug);
 	bool execute(T instruction, bool debug, uint64_t laneID);
     
     void executeNextPC();

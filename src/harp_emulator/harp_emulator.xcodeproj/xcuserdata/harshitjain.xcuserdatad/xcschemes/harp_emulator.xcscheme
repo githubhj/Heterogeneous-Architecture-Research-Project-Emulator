@@ -66,6 +66,14 @@
             argument = "/Users/harshitjain/Downloads/harp-parallel-programs/bin-1warp/binsearch.bin output 4 8 8 8 1"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/harshitjain/Downloads/harp-parallel-programs/bin-1warp/hashtable.bin output 4 8 8 8 1"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/harshitjain/Downloads/harp-parallel-programs/bin-1warp/bfs.bin output 4 8 8 8 1"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

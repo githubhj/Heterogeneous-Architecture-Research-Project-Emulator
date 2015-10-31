@@ -6,16 +6,51 @@
          contextName = "main:harp_emulator_driver.cpp">
       </ContextState>
       <ContextState
-         contextName = "SimdCore&lt;unsigned int&gt;::start(bool):SimdCore.cpp">
+         contextName = "SimdCore&lt;unsigned int&gt;::execute(unsigned long long, unsigned long long):SimdCore.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "gprFile">
+               value = "laneID">
             </PersistentString>
+            <PersistentString
+               value = "nextProgramCounter">
+            </PersistentString>
+            <PersistentString
+               value = "gprDest[0]">
+            </PersistentString>
+            <PersistentString
+               value = "immediate">
+            </PersistentString>
+            <PersistentString
+               value = "predicateBit">
+            </PersistentString>
+            <PersistentString
+               value = "gprSrc[0]">
+            </PersistentString>
+            <PersistentString
+               value = "lowestAvtiveLaneID">
+            </PersistentString>
+            <PersistentString
+               value = "pregDest[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SimdCore&lt;unsigned int&gt;::start(bool):SimdCore.cpp">
+         <PersistentStrings>
             <PersistentString
                value = "GPU">
             </PersistentString>
             <PersistentString
                value = "reconvStack">
+            </PersistentString>
+            <PersistentString
+               value = "programCounter">
+            </PersistentString>
+            <PersistentString
+               value = "gprFile">
+            </PersistentString>
+            <PersistentString
+               value = "debug_counter">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
