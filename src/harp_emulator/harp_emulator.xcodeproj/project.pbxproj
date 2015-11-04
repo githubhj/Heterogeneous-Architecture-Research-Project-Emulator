@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		932B7EEE1BD8585200A793A5 /* harp_emulator_driver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE71BD8585200A793A5 /* harp_emulator_driver.cpp */; settings = {ASSET_TAGS = (); }; };
-		932B7EEF1BD8585200A793A5 /* MemoryMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE91BD8585200A793A5 /* MemoryMap.cpp */; settings = {ASSET_TAGS = (); }; };
-		932B7EF01BD8585200A793A5 /* SimdCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EEB1BD8585200A793A5 /* SimdCore.cpp */; settings = {ASSET_TAGS = (); }; };
+		932B7EEE1BD8585200A793A5 /* harp_emulator_driver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE71BD8585200A793A5 /* harp_emulator_driver.cpp */; };
+		932B7EEF1BD8585200A793A5 /* MemoryMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EE91BD8585200A793A5 /* MemoryMap.cpp */; };
+		932B7EF01BD8585200A793A5 /* SimdCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 932B7EEB1BD8585200A793A5 /* SimdCore.cpp */; };
+		935FA9DF1BE5F363004FEDB7 /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 935FA9DD1BE5F363004FEDB7 /* Warp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,8 @@
 		932B7EEA1BD8585200A793A5 /* MemoryMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryMap.h; path = ../MemoryMap.h; sourceTree = "<group>"; };
 		932B7EEB1BD8585200A793A5 /* SimdCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimdCore.cpp; path = ../SimdCore.cpp; sourceTree = "<group>"; };
 		932B7EEC1BD8585200A793A5 /* SimdCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimdCore.h; path = ../SimdCore.h; sourceTree = "<group>"; };
+		935FA9DD1BE5F363004FEDB7 /* Warp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Warp.cpp; path = ../Warp.cpp; sourceTree = "<group>"; };
+		935FA9DE1BE5F363004FEDB7 /* Warp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Warp.h; path = ../Warp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +51,8 @@
 		932B7ED21BD8583F00A793A5 = {
 			isa = PBXGroup;
 			children = (
+				935FA9DD1BE5F363004FEDB7 /* Warp.cpp */,
+				935FA9DE1BE5F363004FEDB7 /* Warp.h */,
 				932B7EE71BD8585200A793A5 /* harp_emulator_driver.cpp */,
 				932B7EE81BD8585200A793A5 /* harp_emulator_driver.h */,
 				932B7EE91BD8585200A793A5 /* MemoryMap.cpp */,
@@ -133,6 +138,7 @@
 				932B7EEF1BD8585200A793A5 /* MemoryMap.cpp in Sources */,
 				932B7EEE1BD8585200A793A5 /* harp_emulator_driver.cpp in Sources */,
 				932B7EF01BD8585200A793A5 /* SimdCore.cpp in Sources */,
+				935FA9DF1BE5F363004FEDB7 /* Warp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

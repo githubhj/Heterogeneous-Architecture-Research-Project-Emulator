@@ -6,68 +6,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Warp.h"
-            timestampString = "467342623.480948"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1258"
-            endingLineNumber = "1258"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467500478.163459"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "755">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467500478.163694"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "823">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -88,109 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467508219.955106"
+            timestampString = "468135347.229131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::SimdCore(_archSpec*, MemoryMap*)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515114.01986"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30"
-                  offsetFromSymbolStart = "1805">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::SimdCore(_archSpec*, MemoryMap*)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515114.020079"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30"
-                  offsetFromSymbolStart = "1806">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467508219.955106"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::SimdCore(_archSpec*, MemoryMap*)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467490002.339759"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "2584">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::SimdCore(_archSpec*, MemoryMap*)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467490002.339988"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "2585">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467508219.955106"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i)"
-            landmarkType = "7">
+            startingLineNumber = "73"
+            endingLineNumber = "73">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -307,118 +147,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467508219.955106"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467490127.846297"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467490127.846432"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../harp_emulator_driver.cpp"
-            timestampString = "467490143.018242"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "main(int argc, char* argv[])"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1267"
-            endingLineNumber = "1267"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467500478.384006"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "145"
-                  endingLineNumber = "145"
-                  offsetFromSymbolStart = "1008">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467500478.384176"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "145"
-                  endingLineNumber = "145"
-                  offsetFromSymbolStart = "1107">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "../harp_emulator_driver.cpp"
             timestampString = "467493396.822265"
             startingColumnNumber = "9223372036854775807"
@@ -452,780 +180,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468361111.420651"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1431"
-            endingLineNumber = "1431"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467500521.00926"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "319"
-                  endingLineNumber = "319"
-                  offsetFromSymbolStart = "5397">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467500521.009403"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "319"
-                  endingLineNumber = "319"
-                  offsetFromSymbolStart = "5911">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1247"
-            endingLineNumber = "1247"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467504436.355716"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "564">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467504436.355859"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "597">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1439"
-            endingLineNumber = "1439"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467503958.309822"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "317"
-                  endingLineNumber = "317"
-                  offsetFromSymbolStart = "4622">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467503958.309965"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "317"
-                  endingLineNumber = "317"
-                  offsetFromSymbolStart = "5137">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1498"
-            endingLineNumber = "1498"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467504774.77729"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "349"
-                  endingLineNumber = "349"
-                  offsetFromSymbolStart = "7015">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467504774.777506"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "349"
-                  endingLineNumber = "349"
-                  offsetFromSymbolStart = "7537">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1829"
-            endingLineNumber = "1829"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515114.028959"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "795"
-                  endingLineNumber = "795"
-                  offsetFromSymbolStart = "12315">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515114.029192"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "795"
-                  endingLineNumber = "795"
-                  offsetFromSymbolStart = "13114">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1844"
-            endingLineNumber = "1844"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515114.030378"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "810"
-                  endingLineNumber = "810"
-                  offsetFromSymbolStart = "12589">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515114.030589"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "810"
-                  endingLineNumber = "810"
-                  offsetFromSymbolStart = "13399">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2121"
-            endingLineNumber = "2121"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned int, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.481859"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1092"
-                  endingLineNumber = "1092"
-                  offsetFromSymbolStart = "16835">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, bool, unsigned long long)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.482137"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1092"
-                  endingLineNumber = "1092"
-                  offsetFromSymbolStart = "17858">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1118"
-            endingLineNumber = "1118"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467788674.929635"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1094"
-                  endingLineNumber = "1094"
-                  offsetFromSymbolStart = "1567">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467788674.929868"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1094"
-                  endingLineNumber = "1094"
-                  offsetFromSymbolStart = "1589">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1074"
-            endingLineNumber = "1074"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.490106"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "103"
-                  endingLineNumber = "103"
-                  offsetFromSymbolStart = "515">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.49053"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "103"
-                  endingLineNumber = "103"
-                  offsetFromSymbolStart = "523">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1086"
-            endingLineNumber = "1086"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467514879.461952"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "721">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467514879.46325"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "730">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1101"
-            endingLineNumber = "1101"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.493248"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "927">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.493803"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "938">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1113"
-            endingLineNumber = "1113"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467626493.604132"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1088"
-                  endingLineNumber = "1088"
-                  offsetFromSymbolStart = "1511">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467626493.60431"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1088"
-                  endingLineNumber = "1088"
-                  offsetFromSymbolStart = "1533">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1131"
-            endingLineNumber = "1131"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.496791"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "154"
-                  endingLineNumber = "154"
-                  offsetFromSymbolStart = "1820">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.496971"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "154"
-                  endingLineNumber = "154"
-                  offsetFromSymbolStart = "1841">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1091"
-            endingLineNumber = "1091"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.498216"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "721">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467515207.498666"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "120"
-                  endingLineNumber = "120"
-                  offsetFromSymbolStart = "730">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1193"
-            endingLineNumber = "1193"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467622391.479857"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1164"
-                  endingLineNumber = "1164"
-                  offsetFromSymbolStart = "5212">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467622391.480086"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1164"
-                  endingLineNumber = "1164"
-                  offsetFromSymbolStart = "5245">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1059"
-            endingLineNumber = "1059"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467760130.187405"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1034"
-                  endingLineNumber = "1034"
-                  offsetFromSymbolStart = "477">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467760130.187558"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1034"
-                  endingLineNumber = "1034"
-                  offsetFromSymbolStart = "482">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "962"
-            endingLineNumber = "962"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "1047"
+            endingLineNumber = "1047"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1268,12 +228,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467955795.456883"
+            timestampString = "468358363.247005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "593"
+            endingLineNumber = "593"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1316,12 +276,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467955795.456883"
+            timestampString = "468358363.247005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "590"
+            endingLineNumber = "590"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1360,96 +320,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1812"
-            endingLineNumber = "1812"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468135347.229131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1025"
-            endingLineNumber = "1025"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467622790.837567"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1006"
-                  endingLineNumber = "1006"
-                  offsetFromSymbolStart = "121">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467622790.837803"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1006"
-                  endingLineNumber = "1006"
-                  offsetFromSymbolStart = "124">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1789"
-            endingLineNumber = "1789"
-            landmarkName = "execute(T instruction, bool debug, uint64_t laneId)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "627"
-            endingLineNumber = "627"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "639"
+            endingLineNumber = "639"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1492,12 +372,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468358363.247005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "829"
-            endingLineNumber = "829"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "851"
+            endingLineNumber = "851"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1540,12 +420,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467955795.456883"
+            timestampString = "468358363.247005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1588,108 +468,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468361111.420651"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1069"
-            endingLineNumber = "1069"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467796899.459729"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1044"
-                  endingLineNumber = "1044"
-                  offsetFromSymbolStart = "534">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467796899.463336"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1044"
-                  endingLineNumber = "1044"
-                  offsetFromSymbolStart = "546">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1119"
-            endingLineNumber = "1119"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467777226.972757"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1094"
-                  endingLineNumber = "1094"
-                  offsetFromSymbolStart = "1567">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467777226.972957"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1094"
-                  endingLineNumber = "1094"
-                  offsetFromSymbolStart = "1589">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "974"
-            endingLineNumber = "974"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "1059"
+            endingLineNumber = "1059"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID, bool debug)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1732,12 +516,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468361111.420651"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "964"
-            endingLineNumber = "964"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "1049"
+            endingLineNumber = "1049"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1780,60 +564,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468135347.229131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1135"
-            endingLineNumber = "1135"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467796931.181046"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1110"
-                  endingLineNumber = "1110"
-                  offsetFromSymbolStart = "2262">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467796931.181183"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1110"
-                  endingLineNumber = "1110"
-                  offsetFromSymbolStart = "2294">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "654"
-            endingLineNumber = "654"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "666"
+            endingLineNumber = "666"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1876,108 +612,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468361111.420651"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1029"
-            endingLineNumber = "1029"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467788374.850661"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1010"
-                  endingLineNumber = "1010"
-                  offsetFromSymbolStart = "131">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467788374.850785"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1010"
-                  endingLineNumber = "1010"
-                  offsetFromSymbolStart = "134">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1117"
-            endingLineNumber = "1117"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467791958.905405"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1092"
-                  endingLineNumber = "1092"
-                  offsetFromSymbolStart = "1553">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467791958.905601"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1092"
-                  endingLineNumber = "1092"
-                  offsetFromSymbolStart = "1575">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "975"
-            endingLineNumber = "975"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "1060"
+            endingLineNumber = "1060"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID, bool debug)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -2020,12 +660,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467955795.456883"
+            timestampString = "468358363.247005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -2062,54 +702,6 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1071"
-            endingLineNumber = "1071"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467799026.332735"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1046"
-                  endingLineNumber = "1046"
-                  offsetFromSymbolStart = "553">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467799026.333836"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1046"
-                  endingLineNumber = "1046"
-                  offsetFromSymbolStart = "572">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.AddressBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
@@ -2134,156 +726,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
+            timestampString = "468358363.247005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1191"
-            endingLineNumber = "1191"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467957528.146721"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1204"
-                  endingLineNumber = "1204"
-                  offsetFromSymbolStart = "5339">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467957528.147069"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1204"
-                  endingLineNumber = "1204"
-                  offsetFromSymbolStart = "5370">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1048"
-            endingLineNumber = "1048"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467959483.765179"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1073"
-                  endingLineNumber = "1073"
-                  offsetFromSymbolStart = "384">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467959483.765539"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1073"
-                  endingLineNumber = "1073"
-                  offsetFromSymbolStart = "391">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965672.549299"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1054"
-            endingLineNumber = "1054"
-            landmarkName = "start(bool debug)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467961149.75618"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1079"
-                  endingLineNumber = "1079"
-                  offsetFromSymbolStart = "465">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
-                  moduleName = "harp_emulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467961149.756542"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1079"
-                  endingLineNumber = "1079"
-                  offsetFromSymbolStart = "472">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467961160.23318"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
-            landmarkName = "execute(uint64_t opCodeValue, uint64_t laneID)"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -2322,47 +770,735 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.h"
+            timestampString = "468358363.247005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "class SimdCore"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../SimdCore.cpp"
-            timestampString = "467965665.206311"
+            filePath = "../harp_emulator_driver.cpp"
+            timestampString = "468134018.535395"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1188"
-            endingLineNumber = "1188"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "main(int argc, char* argv[])"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Warp.cpp"
+            timestampString = "468134051.38483"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "Warp(ArchSpec_t* simdPtr, uint64_t _warpId, bool _debugFlag)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned int&gt;::Warp(ArchSpec_t*, unsigned long long, bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.80417"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "534">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned long long&gt;::Warp(ArchSpec_t*, unsigned long long, bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.804551"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "534">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Warp.cpp"
+            timestampString = "468358482.893862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "initGPR(uint64_t fileSize, uint64_t laneSize)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned int&gt;::initGPR(unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.806801"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned long long&gt;::initGPR(unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.807162"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "39">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Warp.cpp"
+            timestampString = "468358482.893862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "initPreg(uint64_t fileSize, uint64_t laneSize)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned int&gt;::initGPR(unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.815161"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "682">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned long long&gt;::initGPR(unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.815827"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "683">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Warp.cpp"
+            timestampString = "468358482.893862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "initPreg(uint64_t fileSize, uint64_t laneSize)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned int&gt;::initGPR(unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.818399"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "712">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned long long&gt;::initGPR(unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.819772"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "713">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Warp.cpp"
+            timestampString = "468134306.609094"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "nextProgramCounter(0)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned int&gt;::Warp()"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.82997"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "557">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Warp&lt;unsigned long long&gt;::Warp()"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/Warp.cpp"
+                  timestampString = "468134996.830364"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "559">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468358363.247005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "726"
+            endingLineNumber = "726"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned long long, unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468135347.565921"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
+                  offsetFromSymbolStart = "18121">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468135347.566326"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "716"
+                  endingLineNumber = "716"
+                  offsetFromSymbolStart = "18602">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1085"
+            endingLineNumber = "1085"
             landmarkName = "start(bool debug)"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
                   moduleName = "harp_emulator"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467973253.975074"
+                  timestampString = "468135347.58446"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1188"
-                  endingLineNumber = "1188"
-                  offsetFromSymbolStart = "5411">
+                  startingLineNumber = "1009"
+                  endingLineNumber = "1009"
+                  offsetFromSymbolStart = "155">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
                   moduleName = "harp_emulator"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
-                  timestampString = "467973253.975425"
+                  timestampString = "468135347.584699"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1188"
-                  endingLineNumber = "1188"
-                  offsetFromSymbolStart = "5444">
+                  startingLineNumber = "1009"
+                  endingLineNumber = "1009"
+                  offsetFromSymbolStart = "158">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361111.420651"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1074"
+            endingLineNumber = "1074"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468135347.598616"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1001"
+                  endingLineNumber = "1001"
+                  offsetFromSymbolStart = "81">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468135347.598973"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1001"
+                  endingLineNumber = "1001"
+                  offsetFromSymbolStart = "81">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1096"
+            endingLineNumber = "1096"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468135347.60067"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1020"
+                  endingLineNumber = "1020"
+                  offsetFromSymbolStart = "488">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468135347.600955"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1020"
+                  endingLineNumber = "1020"
+                  offsetFromSymbolStart = "497">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468358363.247005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "982"
+            endingLineNumber = "982"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned long long, unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136291.321469"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "947"
+                  endingLineNumber = "947"
+                  offsetFromSymbolStart = "27881">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136291.32477"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "947"
+                  endingLineNumber = "947"
+                  offsetFromSymbolStart = "28581">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1112"
+            endingLineNumber = "1112"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136366.013204"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1036"
+                  endingLineNumber = "1036"
+                  offsetFromSymbolStart = "844">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136366.016947"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1036"
+                  endingLineNumber = "1036"
+                  offsetFromSymbolStart = "859">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1163"
+            endingLineNumber = "1163"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1190"
+            endingLineNumber = "1190"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136437.780695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1111"
+                  endingLineNumber = "1111"
+                  offsetFromSymbolStart = "4623">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136437.783515"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1111"
+                  endingLineNumber = "1111"
+                  offsetFromSymbolStart = "4681">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468358363.247005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "990"
+            endingLineNumber = "990"
+            landmarkName = "execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::execute(unsigned long long, unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136457.963529"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "955"
+                  endingLineNumber = "955"
+                  offsetFromSymbolStart = "27955">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::execute(unsigned long long, unsigned long long, unsigned long long)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468136457.964971"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "955"
+                  endingLineNumber = "955"
+                  offsetFromSymbolStart = "28655">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1167"
+            endingLineNumber = "1167"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../SimdCore.cpp"
+            timestampString = "468361628.698454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1192"
+            endingLineNumber = "1192"
+            landmarkName = "start(bool debug)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned int&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468361436.763188"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1189"
+                  endingLineNumber = "1189"
+                  offsetFromSymbolStart = "4957">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimdCore&lt;unsigned long long&gt;::start(bool)"
+                  moduleName = "harp_emulator"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harshitjain/git/Heterogeneous-Architecture-Research-Project-Emulator/src/SimdCore.cpp"
+                  timestampString = "468361436.763659"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1189"
+                  endingLineNumber = "1189"
+                  offsetFromSymbolStart = "5006">
                </Location>
             </Locations>
          </BreakpointContent>

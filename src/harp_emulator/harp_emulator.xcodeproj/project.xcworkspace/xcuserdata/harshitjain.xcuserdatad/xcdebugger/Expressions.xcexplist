@@ -15,7 +15,7 @@
                value = "nextProgramCounter">
             </PersistentString>
             <PersistentString
-               value = "gprDest[0]">
+               value = "pregDest[0]">
             </PersistentString>
             <PersistentString
                value = "immediate">
@@ -30,7 +30,7 @@
                value = "lowestAvtiveLaneID">
             </PersistentString>
             <PersistentString
-               value = "pregDest[0]">
+               value = "gprDest[0]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -38,19 +38,28 @@
          contextName = "SimdCore&lt;unsigned int&gt;::start(bool):SimdCore.cpp">
          <PersistentStrings>
             <PersistentString
+               value = "predReg">
+            </PersistentString>
+            <PersistentString
                value = "GPU">
             </PersistentString>
             <PersistentString
-               value = "reconvStack">
+               value = "warpExecutionFlag">
             </PersistentString>
             <PersistentString
                value = "programCounter">
             </PersistentString>
             <PersistentString
-               value = "gprFile">
+               value = "reconvStack">
             </PersistentString>
             <PersistentString
                value = "debug_counter">
+            </PersistentString>
+            <PersistentString
+               value = "warpQueue">
+            </PersistentString>
+            <PersistentString
+               value = "gprFile">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

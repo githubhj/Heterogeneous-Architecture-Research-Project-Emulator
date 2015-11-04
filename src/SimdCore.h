@@ -14,58 +14,14 @@
 #include <limits>
 #include <cmath>
 #include <map>
+#include <vector>
+#include <set>
 #include "MemoryMap.h"
-#include <stack>
+#include "Warp.h"
 
-#define DEFAULT_GPRVAL 0UL
-#define DEFAULT_PREGVAL false
-#define DEFAULT_ACTIVITYMSK 1UL
 
-//Reconvergence Stack element
-template<typename T>
-struct reconvStackElem {
-    T nextPC;
-    bool* activityMask;
-};
 
 typedef std::vector<char> outputmemory_t;
-
-typedef struct _instrField{
-	uint32_t position;
-	uint32_t length;
-}instrField_t;
-
-typedef enum ArgumentEnum{AC_NONE, AC_2REG, AC_2IMM, AC_3REG,
-							AC_3PREG, AC_3IMM, AC_3REGSRC, AC_1IMM,
-							AC_1REG, AC_3IMMSRC, AC_PREG_REG ,AC_2PREG}ArgumentEnum_t;
-
-typedef struct _archSpec{
-	//In Bytes
-	uint32_t instLength;
-
-	//In Numbers
-	uint32_t gprNum;
-	uint32_t gprBitLength;
-	uint32_t pregNum;
-	uint32_t pregBitLength;
-	uint64_t writeAddr;
-    uint64_t warpSize;
-    uint64_t simdLaneSize;
-
-	//Vector pointer for opcode to argument map
-	std::vector<ArgumentEnum_t> opcodeToArgument;
-
-	//Memory Map
-	MemoryMap* memoryMap;
-
-	//Instruction Fields
-	instrField_t predicate;
-	instrField_t pregRegField;
-	instrField_t opcode;
-
-}ArchSpec_t;
-
-
 
 class SimdCoreBase{
 public:
@@ -88,17 +44,6 @@ private:
 
 	//Mmeory Map
 	MemoryMap* memoryMap;
-	
-	//Program counter and register file
-	T                       programCounter;
-    T                       nextProgramCounter;
-    std::vector<T*>         gprFile;
-    std::vector<bool*> 		pregFile;
-    
-    //curr Mask
-    bool* currMask;
-    //Next Active Mask
-    bool* nextActMask;
     
     //Instruction Operands
     uint64_t    gprSrc[2];
@@ -109,22 +54,21 @@ private:
     bool        predicateBit;
     uint64_t    predReg;
     
+    
+    //Reset Operands
     void resetOperands();
     
     //debug counter;
     uint64_t debug_counter;
     
-    //Warp Stack
-    std::stack<reconvStackElem<T> > reconvStack;
+    //Warp Activity MAsk
+    bool* warpExecutionFlag;
     
-    //split signature
-    bool splitSign;
-    
-    //join signature
-    bool joinSign;
-    
-    //join signature
     bool* predSign;
+    
+    std::vector<Warp<T>*> warpQueue;
+    
+    std::map<T,std::set<Warp<T>* > > barrier;
     
 public:
 
@@ -144,26 +88,22 @@ public:
     std::string getOutputData();
     
     //Fetch next instruction
-    T fetch();
-    T fetch(bool debug);
+    T fetch(T programCounter);
+    T fetch(T programCounter, bool debug);
     
     //Decode
     uint64_t decode(T instruction);
     uint64_t decode(T instruction,bool debug);
     
     //Execute
-    bool execute(uint64_t opCodeValue, uint64_t laneID);
-    bool execute(uint64_t opCodeValue, uint64_t laneID, bool debug);
+    bool execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID);
+    bool execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID, bool debug);
 	bool execute(T instruction, bool debug, uint64_t laneID);
     
     void executeNextPC();
     
     void reset(void);
-    void clearGprFile(void);
-    void clearPregFile(void);
-    void clearProgramCounter(void);
     void clearOutPutMemory(void);
-    void clearActivityMask(void);
 
 	~SimdCore();
 };

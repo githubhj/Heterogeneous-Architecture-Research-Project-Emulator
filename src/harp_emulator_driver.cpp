@@ -94,7 +94,7 @@ bool loadOpcodeToInstr(ArchSpec_t* archSpec){
 		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_3REG);		//wspawn
 		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//split
 		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//join
-		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_NONE);		//bar
+		archSpec->opcodeToArgument.push_back(ArgumentEnum::AC_2REG);		//bar
 		return true;
 	}
 }
@@ -246,8 +246,8 @@ int main(int argc, char* argv[]) {
         GPU[0].reset(new SimdCore<uint64_t>(simdSpecPtr,memoryMap));
 	}
     
-    GPU[0]->reset();
-    GPU[0]->start(true);
+    //GPU[0]->reset();
+    GPU[0]->start(false);
     
 //    //Execute GPU's
 //    for (uint32_t warpID =0 ; warpID < warpNum; warpID++) {

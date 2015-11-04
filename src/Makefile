@@ -6,7 +6,7 @@ CXX     	= g++
 RM      	= /bin/rm -rf
 
 
-SRCS = harp_emulator_driver.cpp SimdCore.cpp MemoryMap.cpp 
+SRCS = harp_emulator_driver.cpp SimdCore.cpp MemoryMap.cpp Warp.cpp 
 OUTPUT = harp_emulator
 OBJS = $(subst %.cpp,%.o,$(SRCS))
 
