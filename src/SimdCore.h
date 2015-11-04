@@ -18,7 +18,8 @@
 #include <set>
 #include "MemoryMap.h"
 #include "Warp.h"
-
+#include <limits.h>
+#include <stdint.h>
 
 
 typedef std::vector<char> outputmemory_t;

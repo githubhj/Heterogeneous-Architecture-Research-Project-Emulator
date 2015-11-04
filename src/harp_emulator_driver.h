@@ -14,6 +14,8 @@
 #include <vector>
 #include "SimdCore.h"
 #include "MemoryMap.h"
+#include <memory>
+#include <stdint.h>
 
 #define DEFAULT_IL 4
 #define DEFAULT_GN 8

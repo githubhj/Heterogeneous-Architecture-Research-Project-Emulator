@@ -1117,7 +1117,7 @@ void SimdCore<T>::start(bool debug){
                     warpExecutionFlag[warpID] = true;
                 }
                 
-                if (warpQueue[warpID]->splitSign || opCodeVal == 0x3b) {
+                if ((!warpQueue[warpID]->inBarrier) && (warpQueue[warpID]->splitSign || opCodeVal == 0x3b) ) {
                     //PC
                     warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->programCounter + simdSpec->instLength;
                     
@@ -1166,7 +1166,7 @@ void SimdCore<T>::start(bool debug){
                 }
                 
                 //check if join was executed last
-                if(warpQueue[warpID]->joinSign || (opCodeVal == 0x3c)){
+                if((!warpQueue[warpID]->inBarrier) && (warpQueue[warpID]->joinSign || (opCodeVal == 0x3c))){
                     warpQueue[warpID]->joinSign = false;
                     
                     executeNext = true;

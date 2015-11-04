@@ -249,16 +249,6 @@ int main(int argc, char* argv[]) {
     //GPU[0]->reset();
     GPU[0]->start(false);
     
-//    //Execute GPU's
-//    for (uint32_t warpID =0 ; warpID < warpNum; warpID++) {
-//        for (uint64_t laneID=0; laneID < simdLanes; laneID++) {
-//            GPU[laneID]->reset();
-//            GPU[laneID]->start(false);
-//            threadOutputMemory[warpID*simdLanes + laneID] = GPU[laneID]->outputMemory;
-//        }
-//    }
-   
-
     
     //Write to the output file
     ofstream outFile;

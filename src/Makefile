@@ -1,7 +1,7 @@
 #### HarpTool MakeFile
 
 INCLUDE 	= -I ./
-CXXFLAGS  = -std=c++11 -Wall -Wno-constant-conversion
+CXXFLAGS  = -std=c++11 -Wall -Wno-overflow -Wno-sign-compare -Wno-reorder #-Wno-constant-conversion
 CXX     	= g++
 RM      	= /bin/rm -rf
 
