@@ -1,0 +1,42 @@
+4278439424
+Steps: 24643685
+=== Warp 0 ===
+Steps: 24643685
+Insts: 197136120
+Loads: 109053111
+Stores: 50332308
+=== Warp 1 ===
+Steps: 24642749
+Insts: 197135196
+Loads: 109052915
+Stores: 50332159
+=== Warp 2 ===
+Steps: 24642787
+Insts: 197135235
+Loads: 109052936
+Stores: 50332170
+=== Warp 3 ===
+Steps: 24642749
+Insts: 197135196
+Loads: 109052915
+Stores: 50332159
+=== Warp 4 ===
+Steps: 24642825
+Insts: 197135274
+Loads: 109052957
+Stores: 50332181
+=== Warp 5 ===
+Steps: 24642749
+Insts: 197135196
+Loads: 109052915
+Stores: 50332159
+=== Warp 6 ===
+Steps: 24642787
+Insts: 197135235
+Loads: 109052936
+Stores: 50332170
+=== Warp 7 ===
+Steps: 24642749
+Insts: 197135196
+Loads: 109052915
+Stores: 50332159
