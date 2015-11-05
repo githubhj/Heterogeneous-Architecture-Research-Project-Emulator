@@ -1,13 +1,19 @@
-/*
- * Warp.cpp
- *
- *  Created on: Oct 31, 2015
- *      Author: harshitjain
- */
+//============================================================================
+// Name        : Warp.cpp
+// Author      : Harshit Jain
+// Version     : 1.0
+// Copyright   : It's protected under Beerware
+// GT ID       : 903024992
+// Class       : ECE 8823
+// Assignment  : 3
+// Description : Warp Class in C++, Ansi-style
+//============================================================================
 
 #include "Warp.h"
 
-//Default Constructor
+/*Warp default constructor.
+ * Initializes internals as per constants.
+ * */
 template <typename T>
 Warp<T>::Warp():debugFlag(false),simdCoreSize(DEFAULT_LANE_SIZE),warpId(0),debug_counter(0),programCounter(0),nextProgramCounter(0){
 
@@ -17,7 +23,12 @@ Warp<T>::Warp():debugFlag(false),simdCoreSize(DEFAULT_LANE_SIZE),warpId(0),debug
 	initActMask(DEFAULT_LANE_SIZE);
 }
 
-//Actual Constructor
+/*
+ * Warp: Main constructor.
+ * params:	1. ArchSpec_t: Pointer to arch specification.
+ * 			2. Warp id.
+ * 			3. Debug flag
+ **/
 template <typename T>
 Warp<T>::Warp(ArchSpec_t* simdPtr, uint64_t _warpId, bool _debugFlag){
 
@@ -36,10 +47,12 @@ Warp<T>::Warp(ArchSpec_t* simdPtr, uint64_t _warpId, bool _debugFlag){
 	nextProgramCounter = 0;
 	programCounter = 0;
     isExecuting = false;
-
 }
 
-//Destructor
+/*
+ * Warp		: Main destructor.
+ * params	:	None
+ **/
 template <typename T>
 Warp<T>::~Warp() {
 	// TODO Auto-generated destructor stub
@@ -47,15 +60,26 @@ Warp<T>::~Warp() {
 	delete[] nextActMask;
 }
 
-//Allocate and init activity mask
+/*
+ * Warp		: 	initMask routine, to allocate memory to thread mask and initialize them.
+ * params	:	Lanesize of the warp.
+ **/
 template <typename T>
 void Warp<T>::initActMask(uint64_t laneSize){
+	//Get memory
+	//Running mask
 	currMask 	= new bool[laneSize];
+	//Mask for next cycle
 	nextActMask = new bool[laneSize];
+	//Back-up mask to be used after barrier
     shadowMask = new bool[laneSize];
+
+    //Set 0th Lane
 	currMask[0]		= DEFAULT_ACTIVITYMSK;
 	nextActMask[0]	= DEFAULT_ACTIVITYMSK;
     shadowMask[0] = false;
+
+    //Set rest of the lanes as false
 	for(uint64_t laneID = 1 ; laneID < laneSize; laneID++){
 		currMask[laneID] 	= false;
 		nextActMask[laneID] = false;
@@ -64,10 +88,17 @@ void Warp<T>::initActMask(uint64_t laneSize){
 	}
 }
 
-//Allocate and initialize GPR
+/*
+ * Warp		: 	initGPR routine, to allocate memory to thread GPR file and initialize them.
+ * params	:	1. GPR file size of a lane.
+ * 				2. Lanesize of the warp.
+ **/
 template <typename T>
 void Warp<T>::initGPR(uint64_t fileSize, uint64_t laneSize){
+
+	//For each lane
 	for(uint64_t laneID =0 ; laneID < laneSize ; laneID++){
+		//For each GPR
         std::vector<T> tempGPR;
 		for(uint64_t fileID=0; fileID < fileSize ; fileID++){
 			tempGPR.push_back(DEFAULT_GPRVAL);
@@ -76,10 +107,16 @@ void Warp<T>::initGPR(uint64_t fileSize, uint64_t laneSize){
 	}
 }
 
-//Allocate and initialize Preg
+/*
+ * Warp		: 	initPREG routine, to allocate memory to thread PREG file and initialize them.
+ * params	:	1. GPR file size of a lane.
+ * 				2. Lanesize of the warp.
+ **/
 template <typename T>
 void Warp<T>::initPreg(uint64_t fileSize, uint64_t laneSize){
+	//For each lane
 	for(uint64_t laneID =0 ; laneID < laneSize ; laneID++){
+		//For each preg
         std::vector<bool> tempPREG;
         for(uint64_t fileID=0; fileID < fileSize ; fileID++){
             tempPREG.push_back(DEFAULT_PREGVAL);
@@ -88,14 +125,21 @@ void Warp<T>::initPreg(uint64_t fileSize, uint64_t laneSize){
 	}
 }
 
-//Allocate and initialize PC
+/*
+ * Warp		: 	initPC routine, to initialize PC and nextPC to 0.
+ * params	:	None.
+ **/
 template <typename T>
 void Warp<T>::initPC(){
 	programCounter = 0;
 	nextProgramCounter = 0;
 }
 
-//Allocate and initialize PC
+/*
+ * Warp		: 	initPred routine, to initialize predsign used by split instruction.
+ * 				Initialise Split flag, Join flag and Barrier flag.
+ * params	:	Lane size.
+ **/
 template <typename T>
 void Warp<T>::initPred(uint64_t laneSize){
     splitSign = false;
@@ -107,6 +151,9 @@ void Warp<T>::initPred(uint64_t laneSize){
     }
 }
 
+/*
+ * Warp		: printActivityMask(), pretty print for activity masks.
+ **/
 template <typename T>
 void Warp<T>::printActivityMask(){
 	
@@ -119,6 +166,9 @@ void Warp<T>::printActivityMask(){
 	
 }
 
+/*
+ * Warp		: printGPR(), pretty print for GPR file.
+ **/
 template <typename T>
 void Warp<T>::printGPR(){
     std::cerr << std::hex << "\nRegister File for WarpID: " << warpId << "\n" ;
@@ -131,6 +181,9 @@ void Warp<T>::printGPR(){
     
 }
 
+/*
+ * Warp		: printPreg(), pretty print for PREG file.
+ **/
 template <typename T>
 void Warp<T>::printPreg(){
 	std::cerr << std::hex <<    "\n\nPreg Register File: " << warpId << "\n";
@@ -143,6 +196,10 @@ void Warp<T>::printPreg(){
 	}
 }
 
+/*
+ * Warp		: printStackContents(), pretty print for reconvergence stack.
+ * params	: verbose: print complete stack if true, else only top.
+ **/
 template <typename T>
 void Warp<T>::printStackContents(bool verbose){
     std::cerr << std::hex << "\n\n Stack Contents:\n";
@@ -171,6 +228,9 @@ void Warp<T>::printStackContents(bool verbose){
     }
 }
 
+/*
+ * Warp		: printPC(), pretty print for PC and Step count.
+ **/
 template <typename T>
 void Warp<T>::printPC(){
     std::cerr << std::hex << "\n----------------------\n";
@@ -178,10 +238,16 @@ void Warp<T>::printPC(){
     std::cerr << std::hex << "|\n----------------------\n";
 }
 
+
+/*
+ * Warp		: printStats(), pretty print for warp statistics.
+ **/
 template <typename T>
 void Warp<T>::printStats(bool verbose){
     
+	//If debug flag is set
     if (debugFlag) {
+    	//Use all othe prints
         std::cerr << std::hex << "\nWarp ID: " << warpId << "\n";
         printPC();
         printGPR();
@@ -192,10 +258,11 @@ void Warp<T>::printStats(bool verbose){
    
 }
 
-
+/*
+ * Warp		: reset(), reset and reassign everything.
+ **/
 template <typename T>
 void Warp<T>::reset(){
-    // TODO Auto-generated destructor stub
     delete[] currMask;
     delete[] nextActMask;
     gprFile.clear();

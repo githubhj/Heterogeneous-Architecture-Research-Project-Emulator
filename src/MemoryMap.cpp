@@ -5,7 +5,7 @@
 // Copyright   : It's protected under Beerware
 // GT ID       : 903024992
 // Class       : ECE 8823
-// Assignment  : 3
+// Assignment  : 4
 // Description : MemoryMap class in C++, Ansi-style
 //============================================================================
 

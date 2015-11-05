@@ -5,7 +5,7 @@
 // Copyright   : It's protected under Beerware
 // GT ID       : 903024992
 // Class       : ECE 8823
-// Assignment  : 3
+// Assignment  : 4
 // Description : Harp Emulator in C++, Ansi-style
 //============================================================================
 
@@ -180,15 +180,15 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-//	//Specify architecture details
-//	std::cout << "\n\n---------Harp Emulator Specifications, Implemented as per harp ISA--------\n";
-//	std::cout << "Instruction Length(in bytes,CONFIGURABLE)\t:\t" 		<< instructionLength<< "\n";
-//	std::cout << "General Purpose Register Number(CONFIGURABLE)\t:\t" 	<< generalPurposeReg<< "\n";
-//	std::cout << "Predicate Register Number(CONFIGURABLE)\t\t:\t" 		<< predicateReg		<< "\n";
-//	std::cout << "SIMD Lanes(CONFIGURABLE)\t\t\t:\t"					<< simdLanes		<< "\n";
-//	std::cout << "Warp number(CONFIGURABLE)\t\t\t:\t"					<< warpNum			<< "\n";
-//	std::cout << "Opcode Length(FIXED)\t\t\t\t:\t"						<< "6"			<< "\n\n";
-//	std::cout << "Help:\t ./harp_emulator <input binary(Required)> <output binary(Required)> <instruction width> <GPR Number> <PREG Number> <SIMD Lanes> <Warp Number>" << "\n";
+	//Specify architecture details
+	std::cout << "\n\n---------Harp Emulator Specifications, Implemented as per harp ISA--------\n";
+	std::cout << "Instruction Length(in bytes,CONFIGURABLE)\t:\t" 		<< instructionLength<< "\n";
+	std::cout << "General Purpose Register Number(CONFIGURABLE)\t:\t" 	<< generalPurposeReg<< "\n";
+	std::cout << "Predicate Register Number(CONFIGURABLE)\t\t:\t" 		<< predicateReg		<< "\n";
+	std::cout << "SIMD Lanes(CONFIGURABLE)\t\t\t:\t"					<< simdLanes		<< "\n";
+	std::cout << "Warp number(CONFIGURABLE)\t\t\t:\t"					<< warpNum			<< "\n";
+	std::cout << "Opcode Length(FIXED)\t\t\t\t:\t"						<< "6"			<< "\n\n";
+	std::cout << "Help:\t ./harp_emulator <input binary(Required)> <output binary(Required)> <instruction width> <GPR Number> <PREG Number> <SIMD Lanes> <Warp Number>" << "\n";
 
 	//Configure Architecture specification
 	ArchSpec_t* simdSpecPtr 	= new ArchSpec_t;
@@ -201,9 +201,9 @@ int main(int argc, char* argv[]) {
 
 	//Get bit length required for GPR and PREG
 	uint32_t gprBitLength 	= log2((double)generalPurposeReg);
-	//cout << gprBitLength << "\n";
+
 	uint32_t pregBitLength 	= log2((double)predicateReg);
-	//cout << pregBitLength << "\n";
+
 
 	simdSpecPtr->gprBitLength  = gprBitLength;
 	simdSpecPtr->pregBitLength = pregBitLength;

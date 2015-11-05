@@ -16,7 +16,10 @@
 
 typedef std::map<uint64_t,uint8_t> memoryBuff_t;
 
-
+/*
+ * MemoryMap class decleration
+ * Object to handle given binary file
+ * */
 class MemoryMap {
 
 public:

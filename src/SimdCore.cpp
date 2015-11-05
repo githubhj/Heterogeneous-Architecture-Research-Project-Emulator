@@ -12,16 +12,28 @@
 #include "SimdCore.h"
 #include "Warp.h"
 
+/*
+ * SimdCore constructor
+ * params:
+ * 1. ArchSpec_t*, pointer to arch specification as provided
+ * 2. MemoryMap*: MemoryMap pointer to acces instructions
+ * */
 template<typename T>
 SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
     
     //Assign memory map and Arch specification
 	simdSpec 		= simdSpec_i;
 	memoryMap 		= memoryMap_i;
+
+	//Initialize internal debug_counter
     debug_counter = 0;
+
+    //Instantiaze Warp Queue as per Warp size
     for (uint64_t warpID =0 ; warpID < simdSpec->warpSize; warpID++) {
         warpQueue.push_back(new Warp<T>(simdSpec,warpID,false));
     }
+
+    //Instantiate Warp Mask
     warpExecutionFlag = new bool[simdSpec->warpSize];
     
     //Initialize warp Execution Flag
@@ -30,7 +42,6 @@ SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
         warpExecutionFlag[count] = false;
         warpQueue[count]->debugFlag = true;
     }
-    
     warpQueue[0]->debugFlag = true;
     
     //Local swtich to turn off warp Execution
@@ -44,23 +55,37 @@ SimdCore<T>::SimdCore(ArchSpec_t* simdSpec_i, MemoryMap* memoryMap_i){
 };
 
 
-//Simd fetch
+/*
+ * SIMD fetch routine.
+ * params: Takes a uint64_t or uint32_t programcounter to fetch from binary file
+ * return: Instruction of uint64_t or uint32_t type.
+ * */
 template<typename T>
 T SimdCore<T>::fetch(T programCounter){
+
+	//return instruction
     T instruction =0;
     
+    //Fetch and shift one byte at a time
     for (uint64_t count = 0; count <simdSpec->instLength; count++) {
         uint64_t tempAddr = programCounter + simdSpec->instLength -1 - count;
         instruction = (instruction << CHAR_BIT) | (uint64_t)memoryMap->memoryBuff[tempAddr];
     }
     
+    //return instruction
     return instruction;
 }
 
 
-//Simd fetch with debug
+/*
+ * SIMD fetch routine.
+ * params: Takes a uint64_t or uint32_t programcounter to fetch from binary file.
+ * A debug flag to print on console output for debug
+ * return: Instruction of uint64_t or uint32_t type.
+ * */
 template<typename T>
 T SimdCore<T>::fetch(T programCounter, bool debug){
+	//Call non-debug fetch routine
     T instruction = fetch(programCounter);
     if (debug) {
         std::cerr << "\n------------------------------" << "\n";
@@ -71,32 +96,63 @@ T SimdCore<T>::fetch(T programCounter, bool debug){
 }
 
 
+/*
+ * SIMD resetOperands routine.
+ * params: None.
+ * reset decoded operands value to -1
+ * return: None.
+ * */
 template<typename T>
 void SimdCore<T>::resetOperands(){
+	//reset src 0
     gprSrc[0]       = -1;
+
+    //reset src 1
     gprSrc[1]       = -1;
+
+    //reset dst 0
     gprDest[0]      = -1;
+
+    //reset predicate reg
     predReg         = -1;
+
+    //reset predicate bit
     predicateBit    = false;
+
+    //reset preg src 0
     pregSrc[0]      = -1;
+
+    //reset preg src 1
     pregSrc[1]      = -1;
+
+    //reset preg dst 0
     pregDest[0]     = -1;
+
+    //reset immediate
     immediate       = -1;
 }
 
 
-//Simd decode
+/*
+ * SIMD decode routine.
+ * params: A fetched instruction of type uint64_t or uint32_t.
+ * returns: opcode value, and sets the desired operands in SIMD class, unwanted operands are reset to -1.
+ * */
 template<typename T>
 uint64_t SimdCore<T>::decode(T instruction){
     
+	//Reset all operands
     resetOperands();
+
+    //Return opcode Value
     uint64_t opcodeValue = 0;
+
+    //Opcode to argument type
     ArgumentEnum_t	opcodeArg;
     
     //Get predicate Bit
     predicateBit = (instruction >> ((simdSpec->predicate.position)-1));
     
-    //Normal Execution
     
     //Get Opcode
     uint32_t opcodeBitsBefore 	= sizeof(T)*CHAR_BIT-simdSpec->opcode.position;
@@ -110,17 +166,22 @@ uint64_t SimdCore<T>::decode(T instruction){
     uint32_t regShiftLeftVal = sizeof(T)*CHAR_BIT - (simdSpec->opcode.position - simdSpec->opcode.length);
     T opcodeWithArgs = (instruction << regShiftLeftVal) >> regShiftLeftVal;
     
+    //Init shift vals
     uint32_t rightShiftVal1	=0;
     uint32_t rightShiftVal2	=0;
     uint32_t rightShiftVal3	=0;
     uint32_t leftShiftVal1  =0;
     uint32_t leftShiftVal2  =0;
     
+    //Decode as per argument class
     switch(opcodeArg){
-            
+
+    	//AC_NONE: Nothing to decode
         case(ArgumentEnum::AC_NONE):{
             break;
         }
+
+        //AC_2REG: Get src 0  and dest 0
         case(ArgumentEnum::AC_2REG):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
@@ -129,12 +190,15 @@ uint64_t SimdCore<T>::decode(T instruction){
             gprSrc[0]		= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
             break;
         }
+
+        //AC_2IMM: Get immediate and dest 0
         case(ArgumentEnum::AC_2IMM):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             gprDest[0] 		= opcodeWithArgs >> rightShiftVal1;
             leftShiftVal1 	= regShiftLeftVal + simdSpec->gprBitLength;
             immediate		= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1);
             
+            //If immediate is negative
             if (immediate >> (rightShiftVal1-1)) {
                 T mask = 0;
                 uint32_t count = rightShiftVal1;
@@ -147,6 +211,8 @@ uint64_t SimdCore<T>::decode(T instruction){
             }
             break;
         }
+
+        //AC_3REG: Get src0, src1 and dest0
         case(ArgumentEnum::AC_3REG):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
@@ -159,7 +225,8 @@ uint64_t SimdCore<T>::decode(T instruction){
             
             break;
         }
-            
+
+        //AC_3PREG: Get Preg Src0, Preg Src1 and Preg dest0
         case (ArgumentEnum::AC_3PREG):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->pregBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->pregBitLength;
@@ -171,7 +238,8 @@ uint64_t SimdCore<T>::decode(T instruction){
             pregSrc[1] 		= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2) >> rightShiftVal3;
             break;
         }
-            
+
+        //Ac_3IMM: Get scr0, dest0 and immediate value.
         case(ArgumentEnum::AC_3IMM):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
@@ -181,6 +249,7 @@ uint64_t SimdCore<T>::decode(T instruction){
             leftShiftVal2  	= leftShiftVal1 + simdSpec->gprBitLength;
             immediate 			= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2);
             
+            //If immediate is negative
             if (immediate >> (rightShiftVal2-1)) {
                 T mask = 0;
                 uint32_t count = rightShiftVal2;
@@ -193,7 +262,8 @@ uint64_t SimdCore<T>::decode(T instruction){
             }
             break;
         }
-            
+
+        //AC_3REGSRC: Get src 0 , src 1 and dest 0.
         case(ArgumentEnum::AC_3REGSRC):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
@@ -205,10 +275,13 @@ uint64_t SimdCore<T>::decode(T instruction){
             gprSrc[1] 		= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2) >> rightShiftVal3;
             break;
         }
-            
+
+        //AC_1IMM: Get immediate value
         case(ArgumentEnum::AC_1IMM):{
             immediate = opcodeWithArgs ;
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length);
+
+            //If immediate is negative
             if (immediate >> (rightShiftVal1-1)) {
                 T mask = 0;
                 uint32_t count = rightShiftVal1;
@@ -221,13 +294,15 @@ uint64_t SimdCore<T>::decode(T instruction){
             }
             break;
         }
-            
+
+        //AC_1REG: Get src0.
         case(ArgumentEnum::AC_1REG):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             gprSrc[0] 		= opcodeWithArgs >> rightShiftVal1;
             break;
         }
-            
+
+        //AC_3IMMSRC: Get scr0, dest 0 and immediate value.
         case(ArgumentEnum::AC_3IMMSRC):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->gprBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
@@ -236,6 +311,8 @@ uint64_t SimdCore<T>::decode(T instruction){
             gprSrc[1]		= ((opcodeWithArgs << leftShiftVal1) >> leftShiftVal1) >> rightShiftVal2;
             leftShiftVal2  	= leftShiftVal1 + simdSpec->gprBitLength;
             immediate 			= ((opcodeWithArgs << leftShiftVal2) >> leftShiftVal2);
+
+            //If immediate is negative.
             if (immediate >> (rightShiftVal2-1)) {
                 T mask = 0;
                 uint32_t count = rightShiftVal2;
@@ -248,7 +325,8 @@ uint64_t SimdCore<T>::decode(T instruction){
             }
             break;
         }
-            
+
+        //AC_PREG_REG: Get preg dest 0, gpr src 0.
         case(ArgumentEnum::AC_PREG_REG):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->pregBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->gprBitLength;
@@ -258,7 +336,8 @@ uint64_t SimdCore<T>::decode(T instruction){
         
             break;
         }
-            
+
+        //AC_2PREG: Get preg dest 0 and preg src 0.
         case(ArgumentEnum::AC_2PREG):{
             rightShiftVal1 	= (simdSpec->opcode.position - simdSpec->opcode.length - simdSpec->pregBitLength);
             rightShiftVal2 	= rightShiftVal1 - simdSpec->pregBitLength;
@@ -275,17 +354,25 @@ uint64_t SimdCore<T>::decode(T instruction){
     }
     
     
-    //Predicated check
+    //Get Predicate register
     predReg =  ((instruction << (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (sizeof(T)*CHAR_BIT-simdSpec->pregRegField.position)) >> (simdSpec->pregRegField.position - simdSpec->pregRegField.length);
     
+    //Return opcode Value
     return opcodeValue;
 }
 
-//Simd decode
+/*
+ * SIMD decode routine with debug flag.
+ * params	: same as decode with debug flag to print stats.
+ * returns	: returns decoded opcode value.
+ * */
 template<typename T>
 uint64_t SimdCore<T>::decode(T instruction, bool debug){
+
+	//Call normal decode.
     uint64_t oVal = decode(instruction);
     
+    //Print stats
     if (debug) {
         std::cerr << "\n-------------------------\n";
         std::cerr << "| PredBit | PReg | Opcode |\n";
@@ -294,19 +381,31 @@ uint64_t SimdCore<T>::decode(T instruction, bool debug){
         std::cerr << "---------------------------\n";
     }
     
+    //return oval
     return oVal;
 }
 
+/*
+ * SIMD execute routine.
+ * params:	1. Decoded opcode value.
+ * 			2. Warp ID executing opcode.
+ * 			3. LaneID of given warp executing instruction.
+ * returns:	False if alt or loop to itself executed else, True.
+ * */
 template<typename T>
 bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID){
     
+	//Check predicate bit
     if(predicateBit){
+    	//If set check Predicate register
         if(warpQueue[warpID]->pregFile[laneID][predReg]==false){
+        	//Don't execute this instruction, just increment pc and return.
             warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->programCounter + simdSpec->instLength;
             return true;
         }
     }
     
+    //Execute instruction
     switch(opCodeValue){
             //NOP
         case(0):{
@@ -610,7 +709,8 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             
             //jmpr
         case(30):{
-            //get Lowest Active laneID
+
+            //get Lowest Active laneID, this laneID will execute this intruction no other lane ID.
             uint64_t lowestAvtiveLaneID = 0;
             for (uint64_t count = 0; count < simdSpec->simdLaneSize; count++) {
                 if (warpQueue[warpID]->currMask[count]) {
@@ -619,6 +719,7 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
                 }
             }
             
+            //Execute this instruction
             if(gprSrc[0]!=-1){
                 
                 if (laneID == lowestAvtiveLaneID) {
@@ -634,11 +735,16 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
         }
             //clone
         case(31):{
+        	//Increment PC
             warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->programCounter + simdSpec->instLength;
             if(gprSrc[0]!=-1){
+
+            	//Copy GPR
                 for(int i=0 ; i< simdSpec->gprNum ; i++){
                     warpQueue[warpID]->gprFile[warpQueue[warpID]->gprFile[laneID][gprSrc[0]]][i] = warpQueue[warpID]->gprFile[laneID][i];
                 }
+
+                //Copy PREG
                 for(int i=0 ; i< simdSpec->pregNum ; i++){
                     warpQueue[warpID]->pregFile[warpQueue[warpID]->gprFile[laneID][gprSrc[0]]][i] = warpQueue[warpID]->pregFile[laneID][i];
                 }
@@ -654,9 +760,12 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             if( (gprSrc[0]!=-1) && (gprDest[0]!=-1) ){
                 warpQueue[warpID]->gprFile[laneID][gprDest[0]] = warpQueue[warpID]->programCounter + simdSpec->instLength;
                 
+                //Change activity mask
                 for (uint64_t i =0 ; i < warpQueue[warpID]->gprFile[laneID][gprSrc[0]]; i++) {
                     warpQueue[warpID]->nextActMask[i] = true;
                 }
+
+                //Change activity mask
                 for (uint64_t i = warpQueue[warpID]->gprFile[laneID][gprSrc[0]]; i < simdSpec->simdLaneSize; i++) {
                     warpQueue[warpID]->nextActMask[i] = false;
                 }
@@ -669,8 +778,10 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             if( (gprSrc[0]!=-1) && (gprSrc[1]!=-1) && (gprDest[0]!=-1)){
                 warpQueue[warpID]->gprFile[laneID][gprDest[0]] = warpQueue[warpID]->programCounter + simdSpec->instLength;
                 
+                //Get next PC
                 warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->gprFile[laneID][gprSrc[1]];
                 
+                //Change activity mask
                 for (uint64_t i =0 ; i < warpQueue[warpID]->gprFile[laneID][gprSrc[0]]; i++) {
                     warpQueue[warpID]->nextActMask[i] = true;
                 }
@@ -693,6 +804,7 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
                 }
             }
             
+            //Change only from lowest lane ID
             if( (gprSrc[0]!=-1) ){
                 
                 if (laneID == lowestAvtiveLaneID) {
@@ -714,6 +826,8 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             if((gprSrc[0]!=-1) && (gprDest[0]!=-1)){
                 T actualAddr = warpQueue[warpID]->gprFile[laneID][gprSrc[0]] + (immediate);
                 T temp_data =0;
+
+                //Load value from memory
                 for (uint64_t count =0; count < simdSpec->instLength; count++) {
                     uint64_t tempAddr = actualAddr + simdSpec->instLength -1 -count;
                     
@@ -724,6 +838,8 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
                     
                 }
                 warpQueue[warpID]->gprFile[laneID][gprDest[0]] = temp_data;
+
+                //increment npc
                 warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->programCounter + simdSpec->instLength;
                 return true;
             }
@@ -735,9 +851,11 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             if((gprSrc[0]!=-1) && (gprSrc[1]!=-1)){
                 T actualAddr = warpQueue[warpID]->gprFile[laneID][gprSrc[1]] + (immediate);
                 
+                //If addr is write addr and laneID is 0, write to output memory
                 if(actualAddr==simdSpec->writeAddr && laneID == 0){
                     outputMemory.push_back((char)(warpQueue[warpID]->gprFile[laneID][gprSrc[0]]));
                 }
+                //Else write to memory map
                 else{
                     T tempAddr = actualAddr;
                     for (uint64_t count =0; count < simdSpec->instLength; count++) {
@@ -956,15 +1074,22 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
                 }
             }
             
+            //Execute only from lowest laneID
             if(laneID == lowestAvtiveLaneID){
                 if( (gprSrc[0]!=-1) && (gprSrc[1]!=-1) && (gprDest[0]!=-1) ){
+                	//For each warp
                     for (uint64_t warpC =0 ; warpC < simdSpec->warpSize; warpC++) {
+                    	//Get lowest inactive warp
                         if(!warpExecutionFlag[warpC]){
+                        	//Make this warp active
                             warpExecutionFlag[warpC] =true;
+
+                            //Change its npc, pc and dest reg
                             warpQueue[warpC]->programCounter =  warpQueue[warpID]->gprFile[laneID][gprSrc[0]];
                             warpQueue[warpC]->nextProgramCounter =  warpQueue[warpID]->gprFile[laneID][gprSrc[0]];
                             warpQueue[warpC]->gprFile[0][gprDest[0]] = warpQueue[warpID]->gprFile[laneID][gprSrc[1]];
                             
+                            //Make 0th lane active
                             warpQueue[warpC]->currMask[0] = true;
                             warpQueue[warpC]->nextActMask[0] = true;
                             break;
@@ -973,6 +1098,7 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
                 }
             }
             
+            //Inc PC
             warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->programCounter + simdSpec->instLength;
             
             return true;
@@ -981,7 +1107,7 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             //split
         case(59):{
             
-            
+            //Main execution to be done by start routine
             warpQueue[warpID]->splitSign = true;
             
             return true;
@@ -990,6 +1116,7 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
             //join
         case(60):{
             
+        	//Main execution to be done by start routine
             warpQueue[warpID]->joinSign = true;
             
             return true;
@@ -997,7 +1124,10 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
         }
             //bar
         case(61):{
+
+        	//Increment PC
             warpQueue[warpID]->nextProgramCounter = warpQueue[warpID]->programCounter + simdSpec->instLength;
+
             //get Lowest Active laneID
             uint64_t lowestAvtiveLaneID = 0;
             for (uint64_t count = 0; count < simdSpec->simdLaneSize; count++) {
@@ -1007,28 +1137,45 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
                 }
             }
             
+            //Execute from lowest laneID
             if (laneID == lowestAvtiveLaneID) {
+
                 if ( (gprSrc[0]!=-1) && (gprDest[0]!=-1) ) {
+
+                	//Get ID and warp num.
                     T id = warpQueue[warpID]->gprFile[laneID][gprDest[0]];
                     T n = warpQueue[warpID]->gprFile[laneID][gprSrc[0]];
                     
-                    //Add warp to barrier
+                    //Add warp to barrier hash.
                     barrier[id].insert(warpQueue[warpID]);
+
+                    //Make all lanes of warp in active
                     for (uint64_t laneC=0; laneC < simdSpec->simdLaneSize; laneC++) {
                         warpQueue[warpID]->shadowMask[laneC] = warpQueue[warpID]->currMask[laneC];
                         warpQueue[warpID]->nextActMask[laneC] = false;
                     }
+
+                    //Flag this warp as in barrier
                     warpQueue[warpID]->inBarrier = true;
                     
+                    //If barrier is reached by last warp
                     if (barrier[id].size()==n) {
+
+                    	//Start unravelling other warps
                         typename std::set<Warp<T>* >::iterator it;
                         for (it=barrier[id].begin(); it!=barrier[id].end(); it++) {
+
+                        	//Make current mask with shadow mask
                             for (uint64_t laneC=0; laneC<simdSpec->simdLaneSize; laneC++) {
                                 (*it)->currMask[laneC] = (*it)->shadowMask[laneC];
                                 (*it)->nextActMask[laneC] = (*it)->shadowMask[laneC];
                             }
+
+                            //Make in barrier false
                             (*it)->inBarrier = false;
                         }
+
+                        //Erase this barrier ID
                         barrier.erase(id);
                         
                     }
@@ -1049,6 +1196,12 @@ bool SimdCore<T>::execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID
     return false;
 }
 
+/*
+ * Debug mode execution.
+ * params	: Same as normal execute but with debug.
+ * returns	: Same as normal execution.
+ * A routine of actually no use.
+ * */
 template<typename T>
 bool SimdCore<T>::execute(uint64_t opCodeValue,  uint64_t warpID, uint64_t laneID, bool debug){
     bool retVal = execute(opCodeValue, warpID, laneID);
@@ -1060,7 +1213,12 @@ bool SimdCore<T>::execute(uint64_t opCodeValue,  uint64_t warpID, uint64_t laneI
     return retVal;
 }
 
-//simd executor
+/*
+ * SIMD start routine.
+ * THIS ROUTINE KICKS ON THE "SHIT"
+ * params	: Just a lil bool.
+ * returns	: Nothing \m/.
+ * */
 template<typename T>
 void SimdCore<T>::start(bool debug){
     
@@ -1186,6 +1344,7 @@ void SimdCore<T>::start(bool debug){
                 
             }
             
+            //Steps
             warpQueue[warpID]->debug_counter++;
             
             //print stats
@@ -1225,10 +1384,7 @@ void SimdCore<T>::reset(){
     resetOperands();
 }
 
-template <typename T>
-void SimdCore<T>::executeNextPC(){
-    
-}
+
 
 
 //Copy constructor
@@ -1239,6 +1395,7 @@ SimdCore<T>::SimdCore(const SimdCore& other){
     debug_counter = other.debug_counter;
 }
 
+//Destructor
 template <typename T>
 SimdCore<T>::~SimdCore(){
     delete[] warpExecutionFlag;

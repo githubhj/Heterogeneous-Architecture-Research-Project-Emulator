@@ -24,12 +24,12 @@
 
 typedef std::vector<char> outputmemory_t;
 
+/*SimdCore base/interface/abstract class for driver.*/
 class SimdCoreBase{
 public:
 
 	SimdCoreBase(){};
 	virtual void start(bool debug)=0;
-    virtual void executeNextPC()=0;
     virtual std::string getOutputData()=0;
     virtual void reset()=0;
     //outputmemory
@@ -37,6 +37,7 @@ public:
 	virtual ~SimdCoreBase(){};
 };
 
+/*SimdCore derived class for actual execution.*/
 template <typename T>
 class SimdCore:public SimdCoreBase{
 private:
@@ -101,8 +102,7 @@ public:
     bool execute(uint64_t opCodeValue, uint64_t warpID, uint64_t laneID, bool debug);
 	bool execute(T instruction, bool debug, uint64_t laneID);
     
-    void executeNextPC();
-    
+	//Reset and clear memory
     void reset(void);
     void clearOutPutMemory(void);
 

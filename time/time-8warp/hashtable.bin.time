@@ -1,0 +1,15 @@
+
+
+---------Harp Emulator Specifications, Implemented as per harp ISA--------
+Instruction Length(in bytes,CONFIGURABLE)	:	4
+General Purpose Register Number(CONFIGURABLE)	:	8
+Predicate Register Number(CONFIGURABLE)		:	8
+SIMD Lanes(CONFIGURABLE)			:	8
+Warp number(CONFIGURABLE)			:	8
+Opcode Length(FIXED)				:	6
+
+Help:	 ./harp_emulator <input binary(Required)> <output binary(Required)> <instruction width> <GPR Number> <PREG Number> <SIMD Lanes> <Warp Number>
+
+real	0m12.316s
+user	0m11.579s
+sys	0m0.246s

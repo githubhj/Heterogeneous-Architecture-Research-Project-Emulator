@@ -12,9 +12,10 @@ HARP is a resrearch based instruction set architecture similar to MIPS but inclu
 ./src/harp_emulator bubble.bin ../output/bubble.emu.out 
 above command runs for default config: 4w/8/8/8/8
 
-2. SimdCore.cpp: SimdCore class to create SISD object for SIMD execution.
+2. SimdCore.cpp: SimdCore class to executed SIMD model of GPU, instantiates WARP Queue as per given warp size, controls fetch, decode and execution model. Also implements PDOM execution for split/join and wspawn and barrier for Simd control flow.
 3. MemoryMap.cpp: MemoryMap, copies the given binary into internal data structure so as to allow SIMD execution from SIMD lanes.
-4. To compile: do: make @ ./src
+4. Warp.cpp: Warp class to create warp objects with given lane size and GPR and PREG register file of given size. Includes execution mask for lanes and reconvergence stack for PDOm implementation.
+5. To compile: do: make @ ./src
 5. To run: Example: ./src/harp_emulator bubble.bin ../output/bubble.emu.out
 
 ##### /data
@@ -29,5 +30,12 @@ Given docs for Assignment, harp ISA, harmoica ppt and Assignment pdf.
 
 Final output runs for submitted verisons.
 
+#### /time
+
+Time outputs of test run before submission, gives an approximate time of execution of submitted simulator for different binaries. From results: hastable and binsearch execute in minutes while vecsum and bfs might take 60-70  minutes. I executed on Macbook-Pro with 2.9 GHz Intel Core i5, with 8 GB 1867 MHz DDR3.
+
+#### Remarks
+
+I have tested the makefile on pace cluster. It is able to compile but I was unable to check the correctness of my simulator as pace cluster was too slow. Hope I do not lose points because of this.
 
 
